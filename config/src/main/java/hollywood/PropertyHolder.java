@@ -5,6 +5,8 @@ import java.util.Properties;
 
 public class PropertyHolder {
 
+    public static final String HEADER_MESSAGE = "message";
+
     private static Properties prop = new Properties();
 
     static {
