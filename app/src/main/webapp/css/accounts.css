@@ -1,0 +1,135 @@
+.content{
+	background:white;
+	border: 1px solid #dedede;
+	border-radius:15px;
+}
+
+.side_body{
+	padding:10px;
+	line-height:30px;
+}
+
+.btn, .red_btn, .side_body label, .side_body input{
+	float:left;
+	margin-left:10px;
+}
+
+.side_body input{
+	width:100px;
+}
+
+.content table{
+	width:90%;
+}
+
+#account_tree{
+	overflow:auto;
+	height:300px;
+	border: 1px solid #dedede;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+#account_tree ul{
+	padding-left:15px;
+	display:none;
+}
+
+#account_tree .first_level{
+	display:block;
+}
+
+#account_tree li{
+	list-style: none;
+}
+
+#account_tree p{
+	line-height:25px;
+	cursor:pointer;
+	margin:3px;
+	border-left: 1px dashed #666;
+}
+
+.first_level>li>p{
+	border-left:none !important;
+}
+
+#account_tree p:hover, #account_tree p.selected{
+	background-color:#FDFDCE;
+}
+
+.pgroup{
+	padding-left:25px;
+	background:url('../img/pgroup.png') no-repeat left center;
+}
+
+.user{
+	padding-left:25px;
+	background:url('../img/user.png') no-repeat left center;
+}
+
+.user.disabled{
+	background-image:url('../img/forbidden_user.png');
+}
+
+#delete_user{
+	display:none;
+}
+
+.dialog{
+	position:fixed;
+	top:50px;
+	left:50%;
+	margin-left:-200px;
+	width:400px;
+	top:50%;
+	height:220px;
+	margin-top:-110px;
+	z-index:999;
+	background:white;
+	border:2px solid #dedede;
+	border-radius:10px;
+	padding:10px;
+	display:none;
+}
+
+.dialog_title{
+	font-size:1.1em;
+	font-weight:bold;
+	line-height:25px;
+	border-bottom:2px solid #dedede;
+}
+
+.dialog_body{
+	border-bottom:2px solid #dedede;
+	height:120px;
+	padding-top:10px;
+	padding-bottom:10px;
+	overflow:auto;
+}
+
+.dialog_bottom{
+	padding:10px;
+}
+
+#add_pgroup, #add_user{
+	width:80px;
+}
+
+.dialog_body label{
+	width:100px;
+	display: inline-block;
+}
+
+.pgroups_cell{
+	max-width: 200px;
+    word-wrap: break-word;
+}
+
+td.enabled{
+	color:#04A21F;
+}
+
+td.disabled{
+	color:#F73A3A;
+}
