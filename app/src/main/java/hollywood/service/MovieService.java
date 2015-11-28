@@ -49,17 +49,23 @@ public class MovieService {
         logger.info("search by keyword {}", keyword);
         try {
             List<Movie> movieList = luceneSearcher.getMovieResult(keyword);
-            for (Movie movie : movieList) {
-                Links links = linksDao.getByMovieId(movie.getMovieId());
-                movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
-                movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
-                movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
-            }
+            fillUrls4MovieList(movieList);
+
             return movieList;
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
             return new ArrayList<>();
+        }
+    }
+
+    @Transactional
+    private void fillUrls4MovieList(List<Movie> movieList) {
+        for (Movie movie : movieList) {
+            Links links = linksDao.getByMovieId(movie.getMovieId());
+            movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
+            movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
+            movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
         }
     }
 
@@ -75,6 +81,8 @@ public class MovieService {
 
     @Transactional
     public List<Movie> getMissingPostUrlMovies(int count) {
-        return movieDao.getMissingPostUrlMovies(count);
+        List<Movie> movieList = movieDao.getMissingPostUrlMovies(count);
+        fillUrls4MovieList(movieList);
+        return movieList;
     }
 }
