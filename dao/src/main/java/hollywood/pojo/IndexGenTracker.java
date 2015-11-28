@@ -1,6 +1,7 @@
 package hollywood.pojo;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by lingda on 2015/11/28.
@@ -18,7 +19,18 @@ public class IndexGenTracker {
     @Column(name = "status")
     private String status;
     @Column(name = "timestamp")
-    private String timestamp;
+    private Date timestamp;
+
+    @Override
+    public String toString() {
+        return "IndexGenTracker{" +
+                "id=" + id +
+                ", job='" + job + '\'' +
+                ", lastId=" + lastId +
+                ", status='" + status + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 
     public int getId() {
         return id;
@@ -52,11 +64,11 @@ public class IndexGenTracker {
         this.status = status;
     }
 
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 }

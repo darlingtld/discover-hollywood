@@ -14,11 +14,15 @@ public class IndexGenTrackerDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void save(IndexGenTracker indexGenTracker) {
-        sessionFactory.getCurrentSession().save(indexGenTracker);
+    public int save(IndexGenTracker indexGenTracker) {
+        return (int) sessionFactory.getCurrentSession().save(indexGenTracker);
     }
 
-    public void getLastTrackerByJob(String job) {
-        sessionFactory.getCurrentSession().createQuery(String.format("from IndexGenTracker where job = '%s' order by timestamp desc", job)).setMaxResults(1).uniqueResult();
+    public IndexGenTracker getLastTrackerByJob(String job) {
+        return (IndexGenTracker) sessionFactory.getCurrentSession().createQuery(String.format("from IndexGenTracker where job = '%s' order by timestamp desc", job)).setMaxResults(1).uniqueResult();
+    }
+
+    public void update(IndexGenTracker indexGenTracker) {
+        sessionFactory.getCurrentSession().update(indexGenTracker);
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.List;
@@ -37,7 +36,7 @@ public class IndexGenerator {
     private MovieDao movieDao;
 
     @Transactional
-    public void createIndex() {
+    public int createMovieIndex(int lastId) {
         Directory directory;
         IndexWriter indexWriter;
         try {
@@ -51,7 +50,7 @@ public class IndexGenerator {
             iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
             indexWriter = new IndexWriter(directory, iwc);
             Document doc;
-            int start = 0;
+            int start = lastId;
             List<Movie> movieList;
             do {
                 movieList = movieDao.getByPagination(start, maxBufferedDocs);
@@ -69,8 +68,10 @@ public class IndexGenerator {
 
             } while (movieList.size() == maxBufferedDocs);
             indexWriter.close();
+            return start + movieList.size();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return lastId;
     }
 }
