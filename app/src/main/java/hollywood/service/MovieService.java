@@ -62,10 +62,16 @@ public class MovieService {
     @Transactional
     private void fillUrls4MovieList(List<Movie> movieList) {
         for (Movie movie : movieList) {
-            Links links = linksDao.getByMovieId(movie.getMovieId());
-            movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
-            movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
-            movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
+            try {
+                Links links = linksDao.getByMovieId(movie.getMovieId());
+                movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
+                movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
+                movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error(e.getMessage());
+                continue;
+            }
         }
     }
 
@@ -84,5 +90,19 @@ public class MovieService {
         List<Movie> movieList = movieDao.getMissingPostUrlMovies(count);
         fillUrls4MovieList(movieList);
         return movieList;
+    }
+
+    @Transactional
+    public List<Movie> getMoviesByGenres(String genres) {
+        logger.info("get movies by genres {}", genres);
+        try {
+            List<Movie> movieList = luceneSearcher.searchMoviesByGenres(genres);
+            fillUrls4MovieList(movieList);
+            return movieList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        return new ArrayList<>();
     }
 }

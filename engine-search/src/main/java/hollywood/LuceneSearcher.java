@@ -29,19 +29,19 @@ public class LuceneSearcher {
 
     public List<Movie> getMovieResult(String queryStr) throws Exception {
 
-        TopDocs topDocs = search(queryStr);
+        TopDocs topDocs = search("title", queryStr);
 
         ScoreDoc[] scoreDocs = topDocs.scoreDocs;
 
         return addHits2List(scoreDocs);
     }
 
-    private TopDocs search(String queryStr) throws Exception {
+    private TopDocs search(String field, String queryStr) throws Exception {
 
         if (searcher == null) {
             searcher = new IndexSearcher(DirectoryReader.open(FSDirectory.open(Paths.get(searchDir))));
         }
-        QueryParser parser = new QueryParser("title", new StandardAnalyzer());
+        QueryParser parser = new QueryParser(field, new StandardAnalyzer());
         Query query = parser.parse(queryStr.replace("\"", ""));
 
         TopDocs topDocs = searcher.search(query, maxHits);
@@ -63,5 +63,13 @@ public class LuceneSearcher {
             listBean.add(bean);
         }
         return listBean;
+    }
+
+    public List<Movie> searchMoviesByGenres(String genres) throws Exception {
+        TopDocs topDocs = search("genres", genres);
+
+        ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+
+        return addHits2List(scoreDocs);
     }
 }

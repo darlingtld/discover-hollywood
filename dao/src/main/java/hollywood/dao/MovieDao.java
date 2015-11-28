@@ -40,4 +40,5 @@ public class MovieDao {
     public List<Movie> getMissingPostUrlMovies(int count) {
         return sessionFactory.getCurrentSession().createQuery(String.format("from Movie where posterUrl is null")).setMaxResults(50).list();
     }
+
 }

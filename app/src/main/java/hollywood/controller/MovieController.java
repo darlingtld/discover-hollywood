@@ -6,10 +6,7 @@ import hollywood.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -41,6 +38,14 @@ public class MovieController {
         String keyword = searchStub.getString("keyword");
         List<Movie> movieList = movieService.search(keyword);
         return movieList.stream().map(Movie::getTitle).collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "genres/{genres}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getMoviesByGenres(@PathVariable("genres") String genres, HttpServletResponse response) {
+        List<Movie> movieList = movieService.getMoviesByGenres(genres);
+        return movieList;
     }
 
 }
