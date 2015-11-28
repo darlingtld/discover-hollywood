@@ -50,7 +50,7 @@ public class MovieService {
     public List<Movie> search(String keyword) {
         logger.info("search by keyword {}", keyword);
         try {
-            List<Movie> movieList = luceneSearcher.getMovieResult(keyword);
+            List<Movie> movieList = luceneSearcher.getMovieResult(keyword, 10);
             fillUrls4MovieList(movieList);
 
             return movieList;
@@ -96,10 +96,10 @@ public class MovieService {
     }
 
     @Transactional
-    public List<Movie> getMoviesByGenres(String genres) {
+    public List<Movie> getMoviesByGenres(String genres, int limit) {
         logger.info("get movies by genres {}", genres);
         try {
-            List<Movie> movieList = luceneSearcher.searchMoviesByGenres(genres);
+            List<Movie> movieList = luceneSearcher.searchMoviesByGenres(genres, limit);
             fillUrls4MovieList(movieList);
             return movieList;
         } catch (Exception e) {
@@ -113,7 +113,7 @@ public class MovieService {
     public HashMap<String, List<Movie>> getMovieListGroupByGenres() {
         HashMap<String, List<Movie>> movieMaps = new HashMap<>();
         for (Genres genres : Genres.values()) {
-            movieMaps.put(genres.getGenres(), getMoviesByGenres(genres.getGenres()));
+            movieMaps.put(genres.getGenres(), getMoviesByGenres(genres.getGenres(), 6));
         }
         return movieMaps;
     }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -45,7 +46,7 @@ public class MovieController {
     public
     @ResponseBody
     List<Movie> getMoviesByGenres(@PathVariable("genres") String genres, HttpServletResponse response) {
-        List<Movie> movieList = movieService.getMoviesByGenres(genres);
+        List<Movie> movieList = movieService.getMoviesByGenres(genres, 10);
         return movieList;
     }
 
@@ -53,8 +54,15 @@ public class MovieController {
     public
     @ResponseBody
     HashMap<String, List<Movie>> pickFavouriteMovies() {
+//        get nine categories
         HashMap<String, List<Movie>> movieList = movieService.getMovieListGroupByGenres();
-        return movieList;
+        HashMap<String, List<Movie>> movieGenresMap = new HashMap<>();
+        Random random = new Random(System.currentTimeMillis());
+        while (movieGenresMap.size() < 9) {
+            String genres = (String) movieList.keySet().toArray()[random.nextInt(movieList.size())];
+            movieGenresMap.putIfAbsent(genres, movieList.get(genres));
+        }
+        return movieGenresMap;
     }
 
 }

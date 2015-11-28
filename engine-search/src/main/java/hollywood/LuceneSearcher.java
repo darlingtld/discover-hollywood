@@ -27,13 +27,13 @@ public class LuceneSearcher {
     private int maxHits = PropertyHolder.LUCENE_MAX_HITS;
 
 
-    public List<Movie> getMovieResult(String queryStr) throws Exception {
+    public List<Movie> getMovieResult(String queryStr, int limit) throws Exception {
 
         TopDocs topDocs = search("title", queryStr);
 
         ScoreDoc[] scoreDocs = topDocs.scoreDocs;
 
-        return addHits2List(scoreDocs);
+        return addHits2List(scoreDocs, limit);
     }
 
     private TopDocs search(String field, String queryStr) throws Exception {
@@ -49,11 +49,11 @@ public class LuceneSearcher {
         return topDocs;
     }
 
-    private List<Movie> addHits2List(ScoreDoc[] scoreDocs) throws Exception {
+    private List<Movie> addHits2List(ScoreDoc[] scoreDocs, int limit) throws Exception {
 
         List<Movie> listBean = new ArrayList<>();
         Movie bean;
-        for (int i = 0; i < scoreDocs.length; i++) {
+        for (int i = 0; i < Math.min(scoreDocs.length, limit); i++) {
             int docId = scoreDocs[i].doc;
             Document doc = searcher.doc(docId);
             bean = new Movie();
@@ -65,11 +65,11 @@ public class LuceneSearcher {
         return listBean;
     }
 
-    public List<Movie> searchMoviesByGenres(String genres) throws Exception {
+    public List<Movie> searchMoviesByGenres(String genres, int limit) throws Exception {
         TopDocs topDocs = search("genres", genres);
 
         ScoreDoc[] scoreDocs = topDocs.scoreDocs;
 
-        return addHits2List(scoreDocs);
+        return addHits2List(scoreDocs, limit);
     }
 }

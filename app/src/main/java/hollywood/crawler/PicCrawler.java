@@ -1,5 +1,6 @@
 package hollywood.crawler;
 
+import com.alibaba.druid.util.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -18,6 +19,9 @@ public class PicCrawler {
     private static final Logger logger = LoggerFactory.getLogger(PicCrawler.class);
 
     public String getMoviePosterUrl(String tmbdUrl) throws IOException {
+        if (StringUtils.isEmpty(tmbdUrl)) {
+            throw new RuntimeException("empty tmbdUrl");
+        }
         logger.info("try to get img from {}", tmbdUrl);
 
         Document doc = Jsoup.connect(tmbdUrl).userAgent("Mozilla").timeout(30000).get();

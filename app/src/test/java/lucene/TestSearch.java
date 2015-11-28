@@ -26,17 +26,15 @@ public class TestSearch {
     public void search() {
         try {
             Long startTime = System.currentTimeMillis();
-            List<Movie> result = luceneSearcher.getMovieResult("s");
+            List<Movie> result = luceneSearcher.getMovieResult("s", 6);
             int i = 0;
             for (Movie bean : result) {
-                if (i == 10) break;
                 System.out.println(bean);
-                i++;
             }
             System.out.println("searchBean.result.size : " + result.size());
 
             Long endTime = System.currentTimeMillis();
-            System.out.println("查询所花费的时间为：" + (endTime - startTime) / 1000);
+            System.out.println("tiem spent：" + (endTime - startTime) / 1000);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

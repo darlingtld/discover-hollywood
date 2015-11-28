@@ -23,7 +23,7 @@ public class PosterUrlPopulateJob {
 
     @Transactional
     public void populatePosterUrl() {
-        List<Movie> movieList = movieService.getMissingPostUrlMovies(50);
+        List<Movie> movieList = movieService.getMissingPostUrlMovies(100);
         for (Movie movie : movieList) {
             try {
                 String posterUrl = picCrawler.getMoviePosterUrl(movie.getTmbdUrl());
