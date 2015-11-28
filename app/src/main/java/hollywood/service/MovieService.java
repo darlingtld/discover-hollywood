@@ -4,6 +4,7 @@ import hollywood.LuceneSearcher;
 import hollywood.Utils;
 import hollywood.dao.LinksDao;
 import hollywood.dao.MovieDao;
+import hollywood.pojo.Genres;
 import hollywood.pojo.Links;
 import hollywood.pojo.Movie;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -67,6 +69,7 @@ public class MovieService {
                 movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
                 movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
                 movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
+                movie.setPosterUrl(movieDao.getById(movie.getMovieId()).getPosterUrl());
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
@@ -104,5 +107,14 @@ public class MovieService {
             logger.error(e.getMessage());
         }
         return new ArrayList<>();
+    }
+
+    @Transactional
+    public HashMap<String, List<Movie>> getMovieListGroupByGenres() {
+        HashMap<String, List<Movie>> movieMaps = new HashMap<>();
+        for (Genres genres : Genres.values()) {
+            movieMaps.put(genres.getGenres(), getMoviesByGenres(genres.getGenres()));
+        }
+        return movieMaps;
     }
 }

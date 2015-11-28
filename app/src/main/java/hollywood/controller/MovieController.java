@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,14 @@ public class MovieController {
     @ResponseBody
     List<Movie> getMoviesByGenres(@PathVariable("genres") String genres, HttpServletResponse response) {
         List<Movie> movieList = movieService.getMoviesByGenres(genres);
+        return movieList;
+    }
+
+    @RequestMapping(value = "genres/pickfav", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    HashMap<String, List<Movie>> pickFavouriteMovies() {
+        HashMap<String, List<Movie>> movieList = movieService.getMovieListGroupByGenres();
         return movieList;
     }
 

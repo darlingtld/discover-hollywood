@@ -11,15 +11,7 @@
             <div class="col-md-4">
                 <div class="thumbnail">
                     <div class="img-group">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
-                        <img class="fav-img" src="img/Titanic.png">
+                        <img class="fav-img" ng-src="{{movie.posterUrl}}" ng-repeat="movie in movieList[0]">
                     </div>
 
                     <div class="caption">
@@ -35,7 +27,9 @@
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="img/Titanic.png">
+                    <div class="img-group">
+                        <img class="fav-img" ng-src="{{movie.posterUrl}}" ng-repeat="movie in movieList[1]">
+                    </div>
 
                     <div class="caption">
                         <h3>Thumbnail label</h3>
@@ -50,7 +44,9 @@
             </div>
             <div class="col-md-4">
                 <div class="thumbnail">
-                    <img src="img/Titanic.png">
+                    <div class="img-group">
+                        <img class="fav-img" ng-src="{{movie.posterUrl}}" ng-repeat="movie in movieList[2]">
+                    </div>
 
                     <div class="caption">
                         <h3>Thumbnail label</h3>

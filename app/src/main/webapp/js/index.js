@@ -1,7 +1,6 @@
 var app = angular.module("MyApp", ['ngRoute', 'autocomplete']);
-// the service that retrieves some movie title from an url
-app.factory('MovieRetriever', function ($http, $q, $timeout) {
-    var MovieRetriever = new Object();
+app.factory('MovieRetriever', function ($http, $q) {
+    var MovieRetriever = {};
 
     MovieRetriever.getmovies = function (keyword) {
         var moviedata = $q.defer();
@@ -61,7 +60,6 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
             console.log(data)
         });
     };
-
 
 
     $scope.updateMovies = function (typed) {
