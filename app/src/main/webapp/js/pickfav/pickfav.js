@@ -26,8 +26,12 @@ app.controller("PickfavController", function ($scope, $http, $location) {
         }
     }
     $scope.getLikes = function () {
-        return "You like " + $scope.likes.reduce(function (p, c) {
-                return p + "," + c;
-            });
+        if ($scope.likes.length == 0) {
+            return;
+        } else {
+            return "You like " + $scope.likes.reduce(function (p, c) {
+                    return p + "," + c;
+                });
+        }
     };
 });
