@@ -1,25 +1,13 @@
-@import url("common.css");
-@import url("ball.css");
-
-.real-time-header {
-    background: #1FADFB;
-    padding: 6px;
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
-.real-time-header span {
-    margin: 5px 10px;
+#loginsuccess {
+    color: beige;
+    line-height: 2;
 }
 
-.real-time-tabs {
-    display: flex;
-    justify-content: space-around;
-}
-
-.real-time-dashboard {
-    display: flex;
-    justify-content: center;
-}
-
-.real-time-dashboard > table {
-    /*width: 0px;*/
+.logout {
+    margin-left: 20px;
 }

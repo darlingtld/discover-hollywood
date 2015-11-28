@@ -32,7 +32,7 @@ public class UserController {
      * @param loginStub
      * @return
      */
-    @RequestMapping(value = "login", method = RequestMethod.POST, headers = "content-type=application/json")
+    @RequestMapping(value = "signin", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
     User login(@RequestBody JSONObject loginStub, HttpServletResponse response) {
@@ -40,6 +40,21 @@ public class UserController {
         String password = loginStub.getString("password");
         try {
             return userService.login(username, password);
+        } catch (Exception e) {
+            response.setHeader(PropertyHolder.HEADER_MESSAGE, e.getMessage());
+            response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
+            return null;
+        }
+    }
+
+    @RequestMapping(value = "signup", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    User signup(@RequestBody JSONObject loginStub, HttpServletResponse response) {
+        String username = loginStub.getString("username");
+        String password = loginStub.getString("password");
+        try {
+            return userService.signup(username, password);
         } catch (Exception e) {
             response.setHeader(PropertyHolder.HEADER_MESSAGE, e.getMessage());
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());

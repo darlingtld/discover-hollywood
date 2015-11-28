@@ -1,5 +1,6 @@
 package hollywood.service;
 
+import com.alibaba.druid.util.StringUtils;
 import hollywood.PasswordEncryptUtil;
 import hollywood.dao.UserDao;
 import hollywood.pojo.User;
@@ -22,6 +23,7 @@ public class UserService {
 
     @Transactional
     public User login(String username, String password) {
+        logger.info("user {} login", username);
         User user = userDao.getByUsername(username);
         if (user == null) {
             throw new RuntimeException(String.format("username %s does not exist", username));
@@ -30,6 +32,24 @@ public class UserService {
                 throw new RuntimeException("password is incorrect");
             } else {
                 return user;
+            }
+        }
+    }
+
+    @Transactional
+    public User signup(String username, String password) {
+//        validate username and password
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
+            throw new RuntimeException("username or password is empty");
+        } else {
+            synchronized (UserService.class) {
+//            check whether this username has been taken
+                if (userDao.getByUsername(username) != null) {
+                    throw new RuntimeException(String.format("username %s has been taken", username));
+                }
+//                encrypt password
+                password = PasswordEncryptUtil.encrypt(password);
+                return userDao.saveUser(username, password);
             }
         }
     }

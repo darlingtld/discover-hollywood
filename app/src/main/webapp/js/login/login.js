@@ -1,20 +1,25 @@
-var loginApp = angular.module("login", []);
-loginApp.controller("LoginController", function ($scope, $http) {
-    $scope.isError = false;
-    $scope.login = function () {
-        $http.post("administrator/login", {
+var app = angular.module("MyApp");
+app.controller("LoginController", function ($scope, $rootScope, $http, $location) {
+    $scope.signup = function () {
+        $http.post("user/signup", {
             "username": $scope.username,
             "password": $scope.password
-        }).success(function (response) {
-            if (response) {
-                sessionStorage["username"] = response.admin.username;
-                sessionStorage["userid"] = response.admin.id;
-                sessionStorage["pgroupid"] = response.id;
-                sessionStorage["pgroupname"] =  response.name;
-                document.location.href = "index.html";
+        }).success(function (data, status, headers, config) {
+            if (data) {
+                sessionStorage["username"] = data.username;
+                sessionStorage["userId"] = data.userId;
+                $(".modal-backdrop").remove();
+                $("#signin").hide();
+                $("#loginsuccess").removeClass("hidden");
+                $("#username").text(data.username);
+                $location.path("/pickfav");
             } else {
-                $scope.isError = true;
+                console.log(headers["message"]);
             }
-        });
+        }).error(function (data, status, headers, config) {
+            alert(headers("message"));
+        });;
     };
+
+
 });

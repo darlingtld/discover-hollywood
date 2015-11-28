@@ -1,8 +1,6 @@
 package hollywood.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -11,12 +9,24 @@ import java.util.Date;
 @Entity
 @Table(name = "ratings")
 public class Rating {
+    @Id
+    private int id;
     @Column(name = "userId")
     private int userId;
     @Column(name = "movieId")
     private int movieId;
-    @Column(name = "userId")
+    @Column(name = "rating")
     private double rating;
+    @Column(name = "timestamp")
+    private Date timestamp;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Date getTimestamp() {
         return timestamp;
@@ -49,8 +59,5 @@ public class Rating {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-    @Column(name = "timestamp")
-    private Date timestamp;
 
 }
