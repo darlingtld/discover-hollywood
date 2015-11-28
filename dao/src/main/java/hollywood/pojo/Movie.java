@@ -1,20 +1,29 @@
 package hollywood.pojo;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Created by lingda on 2015/11/27.
  */
 @Entity
-@Table(name="movies")
+@Table(name = "movies")
 public class Movie {
     @javax.persistence.Id
-    @Column(name="movieId")
+    @Column(name = "movieId")
     private int movieId;
     @Column(name = "title")
     private String title;
-    @Column(name="genres")
+    @Column(name = "genres")
     private String genres;
+    @Transient
+    private String movieUrl;
+    @Transient
+    private String imbdUrl;
+    @Transient
+    private String tmbdUrl;
 
     @Override
     public String toString() {
@@ -22,7 +31,34 @@ public class Movie {
                 "movieId=" + movieId +
                 ", title='" + title + '\'' +
                 ", genres='" + genres + '\'' +
+                ", movieUrl='" + movieUrl + '\'' +
+                ", imbdUrl='" + imbdUrl + '\'' +
+                ", tmbdUrl='" + tmbdUrl + '\'' +
                 '}';
+    }
+
+    public String getMovieUrl() {
+        return movieUrl;
+    }
+
+    public void setMovieUrl(String movieUrl) {
+        this.movieUrl = movieUrl;
+    }
+
+    public String getImbdUrl() {
+        return imbdUrl;
+    }
+
+    public void setImbdUrl(String imbdUrl) {
+        this.imbdUrl = imbdUrl;
+    }
+
+    public String getTmbdUrl() {
+        return tmbdUrl;
+    }
+
+    public void setTmbdUrl(String tmbdUrl) {
+        this.tmbdUrl = tmbdUrl;
     }
 
     public int getMovieId() {

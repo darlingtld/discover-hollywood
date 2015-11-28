@@ -17,4 +17,8 @@ public class LinksDao {
     public void save(Links links) {
         sessionFactory.getCurrentSession().save(links);
     }
+
+    public Links getByMovieId(int movieId) {
+        return (Links) sessionFactory.getCurrentSession().get(Links.class, movieId);
+    }
 }

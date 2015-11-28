@@ -11,4 +11,16 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(date);
     }
+
+    public static String generateMovieUrl(int movieId) {
+        return String.format("https://movielens.org/movies/%d", movieId);
+    }
+
+    public static String generateImbdUrl(int imbdId) {
+        return String.format("http://www.imdb.com/title/tt0%d", imbdId);
+    }
+
+    public static String generateTmbdUrl(int tmbdId) {
+        return String.format("https://www.themoviedb.org/movie/%d", tmbdId);
+    }
 }

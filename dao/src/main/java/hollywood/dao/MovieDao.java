@@ -27,4 +27,9 @@ public class MovieDao {
     public List<Movie> getByPagination(int start, int count) {
         return sessionFactory.getCurrentSession().createQuery(String.format("from Movie")).setFirstResult(start).setMaxResults(count).list();
     }
+
+    public int getMaxMovieId() {
+        return ((Number) sessionFactory.getCurrentSession().createSQLQuery(String.format("select max(movieId) from movies")).uniqueResult()).intValue();
+
+    }
 }

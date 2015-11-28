@@ -42,7 +42,7 @@ public class LuceneSearcher {
             searcher = new IndexSearcher(DirectoryReader.open(FSDirectory.open(Paths.get(searchDir))));
         }
         QueryParser parser = new QueryParser("title", new StandardAnalyzer());
-        Query query = parser.parse(queryStr);
+        Query query = parser.parse(queryStr.replace("\"", ""));
 
         TopDocs topDocs = searcher.search(query, maxHits);
 

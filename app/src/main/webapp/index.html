@@ -25,8 +25,10 @@
         <div id="navbar" class="navbar-collapse collapse">
             <div id="search" class="navbar-form navbar-left hidden">
                 <div class="form-group">
-                    <input type="text" class="form-control" ng-model="keyword">
-                    <span class="glyphicon glyphicon-search" style="color: yellow;"></span>
+                    <!--<input type="text" class="form-control" ng-model="keyword" ng-autocomplete="result"-->
+                           <!--details="details" options="options">-->
+                    <autocomplete ng-model="keyword" data="movies" on-type="updateMovies"></autocomplete>
+                    <!--<span class="glyphicon glyphicon-search" style="color: yellow;"></span>-->
                 </div>
                 <button class="btn btn-success btn-sm" ng-click="search()">search</button>
             </div>
@@ -55,6 +57,7 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="js/autocomplete.js"></script>
 <script src="js/index.js"></script>
 <script src="js/login/login.js"></script>
 <script src="js/pickfav/pickfav.js"></script>

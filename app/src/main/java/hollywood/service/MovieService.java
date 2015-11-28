@@ -1,7 +1,10 @@
 package hollywood.service;
 
 import hollywood.LuceneSearcher;
+import hollywood.Utils;
+import hollywood.dao.LinksDao;
 import hollywood.dao.MovieDao;
+import hollywood.pojo.Links;
 import hollywood.pojo.Movie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +27,9 @@ public class MovieService {
     private MovieDao movieDao;
 
     @Autowired
+    private LinksDao linksDao;
+
+    @Autowired
     private LuceneSearcher luceneSearcher;
 
     @Transactional
@@ -41,11 +47,23 @@ public class MovieService {
     public List<Movie> search(String keyword) {
         logger.info("search by keyword {}", keyword);
         try {
-            return luceneSearcher.getMovieResult(keyword);
+            List<Movie> movieList = luceneSearcher.getMovieResult(keyword);
+            for (Movie movie : movieList) {
+                Links links = linksDao.getByMovieId(movie.getMovieId());
+                movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
+                movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
+                movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
+            }
+            return movieList;
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
             return new ArrayList<>();
         }
+    }
+
+    @Transactional
+    public int getMaxMovieId() {
+        return movieDao.getMaxMovieId();
     }
 }

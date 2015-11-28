@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by tangl9 on 2015-10-14.
@@ -33,5 +34,13 @@ public class MovieController {
         return movieService.search(keyword);
     }
 
+    @RequestMapping(value = "autocomplete", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    List<String> autocompleteSearch(@RequestBody JSONObject searchStub, HttpServletResponse response) {
+        String keyword = searchStub.getString("keyword");
+        List<Movie> movieList = movieService.search(keyword);
+        return movieList.stream().map(Movie::getTitle).collect(Collectors.toList());
+    }
 
 }

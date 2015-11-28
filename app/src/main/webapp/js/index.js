@@ -1,5 +1,23 @@
-angular.module("MyApp", ['ngRoute']).
-controller('IndexController', function ($scope, $location, $http) {
+var app = angular.module("MyApp", ['ngRoute', 'autocomplete']);
+// the service that retrieves some movie title from an url
+app.factory('MovieRetriever', function ($http, $q, $timeout) {
+    var MovieRetriever = new Object();
+
+    MovieRetriever.getmovies = function (keyword) {
+        var moviedata = $q.defer();
+
+        $http.post("movie/autocomplete", {keyword: keyword}).success(
+            function (response) {
+                moviedata.resolve(response);
+            });
+
+        return moviedata.promise
+    }
+
+    return MovieRetriever;
+});
+
+app.controller('IndexController', function ($scope, $location, $http, MovieRetriever) {
     $scope.user = {
         username: sessionStorage["username"],
         userId: sessionStorage["userId"]
@@ -44,6 +62,15 @@ controller('IndexController', function ($scope, $location, $http) {
         });
     };
 
+
+
+    $scope.updateMovies = function (typed) {
+        $scope.newmovies = MovieRetriever.getmovies(typed);
+        $scope.newmovies.then(function (data) {
+            $scope.movies = data;
+        });
+    }
+
     function _showLogin() {
         $("#signin").hide();
         $("#loginsuccess").removeClass("hidden");
@@ -56,7 +83,9 @@ controller('IndexController', function ($scope, $location, $http) {
         $("#loginsuccess").addClass("hidden");
         $("#search").addClass("hidden");
     }
-}).config(['$routeProvider', function ($routeProvider) {
+});
+
+app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/login', {
         controller: 'LoginController',
         templateUrl: 'includes/signup.html'

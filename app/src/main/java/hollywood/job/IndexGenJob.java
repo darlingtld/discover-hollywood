@@ -4,6 +4,7 @@ import hollywood.IndexGenerator;
 import hollywood.pojo.IndexGenTracker;
 import hollywood.pojo.JobStatus;
 import hollywood.service.IndexGenTrackerService;
+import hollywood.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,9 @@ public class IndexGenJob {
     @Autowired
     private IndexGenTrackerService indexGenTrackerService;
 
+    @Autowired
+    private MovieService movieService;
+
     public void createMovieIndex() {
         IndexGenTracker indexGenTracker = indexGenTrackerService.getLastTrackerByJob(MOVIE_INDEX_JOB);
         if (indexGenTracker != null && indexGenTracker.getStatus().equals(JobStatus.RUNNING)) {
@@ -29,6 +33,10 @@ public class IndexGenJob {
             return;
         }
         int lastId = indexGenTracker == null ? 0 : indexGenTracker.getLastId() + 1;
+        if (indexGenTracker != null && indexGenTracker.getLastId() == movieService.getMaxMovieId()) {
+//                skip
+            return;
+        }
         indexGenTracker = new IndexGenTracker();
         indexGenTracker.setJob(MOVIE_INDEX_JOB);
         indexGenTracker.setLastId(lastId);

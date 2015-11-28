@@ -68,7 +68,7 @@ public class IndexGenerator {
 
             } while (movieList.size() == maxBufferedDocs);
             indexWriter.close();
-            return start + movieList.size();
+            return movieList.get(movieList.size() - 1).getMovieId();
         } catch (Exception e) {
             e.printStackTrace();
         }
