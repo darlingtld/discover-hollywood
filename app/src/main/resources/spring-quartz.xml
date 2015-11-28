@@ -28,9 +28,11 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
     <task:scheduler id="luceneScheduler" pool-size="4"/>
 
     <bean id="indexGenJob" class="hollywood.job.IndexGenJob"/>
+    <bean id="posterUrlPopulateJob" class="hollywood.job.PosterUrlPopulateJob"/>
 
     <task:scheduled-tasks scheduler="luceneScheduler">
         <task:scheduled ref="indexGenJob" method="createMovieIndex" cron="0 * * * * ?"/>
+        <task:scheduled ref="posterUrlPopulateJob" method="populatePosterUrl" cron="0/5 * * * * ?"/>
     </task:scheduled-tasks>
 
 

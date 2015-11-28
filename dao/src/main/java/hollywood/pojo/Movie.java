@@ -18,6 +18,8 @@ public class Movie {
     private String title;
     @Column(name = "genres")
     private String genres;
+    @Column(name = "posterUrl")
+    private String posterUrl;
     @Transient
     private String movieUrl;
     @Transient
@@ -31,10 +33,19 @@ public class Movie {
                 "movieId=" + movieId +
                 ", title='" + title + '\'' +
                 ", genres='" + genres + '\'' +
+                ", posterUrl='" + posterUrl + '\'' +
                 ", movieUrl='" + movieUrl + '\'' +
                 ", imbdUrl='" + imbdUrl + '\'' +
                 ", tmbdUrl='" + tmbdUrl + '\'' +
                 '}';
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
+    }
+
+    public void setPosterUrl(String posterUrl) {
+        this.posterUrl = posterUrl;
     }
 
     public String getMovieUrl() {

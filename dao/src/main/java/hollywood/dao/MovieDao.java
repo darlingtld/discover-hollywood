@@ -32,4 +32,12 @@ public class MovieDao {
         return ((Number) sessionFactory.getCurrentSession().createSQLQuery(String.format("select max(movieId) from movies")).uniqueResult()).intValue();
 
     }
+
+    public void update(Movie movie) {
+        sessionFactory.getCurrentSession().update(movie);
+    }
+
+    public List<Movie> getMissingPostUrlMovies(int count) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from Movie where posterUrl is null")).setMaxResults(50).list();
+    }
 }

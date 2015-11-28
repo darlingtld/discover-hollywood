@@ -44,6 +44,7 @@ public class MovieService {
         movieDao.save(movie);
     }
 
+    @Transactional
     public List<Movie> search(String keyword) {
         logger.info("search by keyword {}", keyword);
         try {
@@ -65,5 +66,15 @@ public class MovieService {
     @Transactional
     public int getMaxMovieId() {
         return movieDao.getMaxMovieId();
+    }
+
+    @Transactional
+    public void update(Movie movie) {
+        movieDao.update(movie);
+    }
+
+    @Transactional
+    public List<Movie> getMissingPostUrlMovies(int count) {
+        return movieDao.getMissingPostUrlMovies(count);
     }
 }
