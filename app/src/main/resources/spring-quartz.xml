@@ -25,15 +25,13 @@
 0 11 11 11 11 ?	Fire every November 11th at 11:11am.
 Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month fields!-->
 
-    <!--<task:scheduler id="lotteryResultScheduler" pool-size="4"/>-->
+    <task:scheduler id="luceneScheduler" pool-size="4"/>
 
-    <!--<bean id="lotteryGroupStatJob" class="fortune.job.LotteryGroupStatJob"/>-->
-    <!--<bean id="lotteryOddsPopulateJob" class="fortune.job.LotteryOddsPopulateJob"/>-->
+    <bean id="indexGenerator" class="hollywood.IndexGenerator"/>
 
-    <!--<task:scheduled-tasks scheduler="lotteryResultScheduler">-->
-        <!--<task:scheduled ref="lotteryGroupStatJob" method="calculateGroupStat" cron="0 * * * * ?"/>-->
-        <!--<task:scheduled ref="lotteryOddsPopulateJob" method="populate" cron="0 * * * * ?"/>-->
-    <!--</task:scheduled-tasks>-->
+    <task:scheduled-tasks scheduler="luceneScheduler">
+        <task:scheduled ref="indexGenerator" method="createIndex" cron="0 * * * * ?"/>
+    </task:scheduled-tasks>
 
 
 </beans>

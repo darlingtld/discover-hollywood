@@ -21,6 +21,18 @@ public class Tag {
     @Column(name = "timestamp")
     private Date timestamp;
 
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", movieId=" + movieId +
+                ", tag='" + tag + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+
+    }
+
     public int getId() {
         return id;
     }

@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by lingda on 2015/11/27.
  */
@@ -20,5 +22,9 @@ public class MovieDao {
 
     public void save(Movie movie) {
         sessionFactory.getCurrentSession().save(movie);
+    }
+
+    public List<Movie> getByPagination(int start, int count) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from Movie")).setFirstResult(start).setMaxResults(count).list();
     }
 }
