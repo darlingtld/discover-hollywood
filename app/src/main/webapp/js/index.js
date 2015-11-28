@@ -36,6 +36,14 @@ controller('IndexController', function ($scope, $location, $http) {
         _hideLogin();
     };
 
+    $scope.search = function () {
+        $http.post("movie/search", {
+            "keyword": $scope.keyword
+        }).success(function (data, status, headers, config) {
+            console.log(data)
+        });
+    };
+
     function _showLogin() {
         $("#signin").hide();
         $("#loginsuccess").removeClass("hidden");
