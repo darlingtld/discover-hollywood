@@ -33,14 +33,20 @@ controller('IndexController', function ($scope, $location, $http) {
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("userId");
         $location.path("/login");
-        $("#signin").show();
-        $("#loginsuccess").addClass("hidden");
+        _hideLogin();
     };
 
     function _showLogin() {
         $("#signin").hide();
         $("#loginsuccess").removeClass("hidden");
+        $("#search").removeClass("hidden");
         $("#username").text($scope.user.username);
+    }
+
+    function _hideLogin() {
+        $("#signin").show();
+        $("#loginsuccess").addClass("hidden");
+        $("#search").addClass("hidden");
     }
 }).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/login', {
@@ -49,6 +55,9 @@ controller('IndexController', function ($scope, $location, $http) {
     }).when('/pickfav', {
         controller: 'PickfavController',
         templateUrl: 'includes/pickfav.html'
+    }).when('/moviehall', {
+        controller: 'MoviehallController',
+        templateUrl: 'includes/moviehall.html'
     }).otherwise({
         redirectTo: '/login'
     });

@@ -11,3 +11,19 @@ body {
 .logout {
     margin-left: 20px;
 }
+
+.banner-description {
+    margin-left: 30px;
+}
+
+.banner {
+    margin-bottom: 30px;
+}
+
+#search {
+    margin-left: 100px;
+}
+
+#search input {
+    width: 400px;
+}

@@ -24,4 +24,10 @@ public class MovieService {
         logger.info("get movie by id {}", movieId);
         return movieDao.getById(movieId);
     }
+
+    @Transactional
+    public void save(Movie movie) {
+        logger.info("save movie {}", movie);
+        movieDao.save(movie);
+    }
 }

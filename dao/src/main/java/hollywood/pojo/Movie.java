@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name="movies")
 public class Movie {
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="movieId")
     private int movieId;
     @Column(name = "title")

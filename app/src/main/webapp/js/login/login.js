@@ -11,6 +11,7 @@ app.controller("LoginController", function ($scope, $rootScope, $http, $location
                 $(".modal-backdrop").remove();
                 $("#signin").hide();
                 $("#loginsuccess").removeClass("hidden");
+                $("#search").removeClass("hidden");
                 $("#username").text(data.username);
                 $location.path("/pickfav");
             } else {
@@ -18,7 +19,8 @@ app.controller("LoginController", function ($scope, $rootScope, $http, $location
             }
         }).error(function (data, status, headers, config) {
             alert(headers("message"));
-        });;
+        });
+        ;
     };
 
 

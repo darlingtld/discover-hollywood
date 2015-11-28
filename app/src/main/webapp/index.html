@@ -7,6 +7,7 @@
     <title>Discover Hollywood</title>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/index.css" rel="stylesheet">
+    <link href="css/pickfav.css" rel="stylesheet">
 </head>
 <body ng-controller="IndexController">
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -22,6 +23,13 @@
             <a class="navbar-brand" href="#">Discover Hollywood</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <div id="search" class="navbar-form navbar-left hidden">
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="searchText">
+                    <span class="glyphicon glyphicon-search" style="color: yellow;"></span>
+                </div>
+                <button class="btn btn-success btn-sm" ng-click="search()">search</button>
+            </div>
             <div id="signin" class="navbar-form navbar-right">
                 <div class="form-group">
                     <input type="text" placeholder="Username" class="form-control" ng-model="user.username">
@@ -50,5 +58,6 @@
 <script src="js/index.js"></script>
 <script src="js/login/login.js"></script>
 <script src="js/pickfav/pickfav.js"></script>
+<script src="js/moviehall/moviehall.js"></script>
 </body>
 </html>

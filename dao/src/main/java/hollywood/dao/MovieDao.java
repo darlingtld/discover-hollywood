@@ -17,4 +17,8 @@ public class MovieDao {
     public Movie getById(int movieId) {
         return (Movie) sessionFactory.getCurrentSession().get(Movie.class, movieId);
     }
+
+    public void save(Movie movie) {
+        sessionFactory.getCurrentSession().save(movie);
+    }
 }
