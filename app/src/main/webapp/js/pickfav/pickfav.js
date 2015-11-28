@@ -15,7 +15,8 @@ app.controller("PickfavController", function ($scope, $http, $location) {
     $scope.likeit = function (genres) {
         if ($scope.likes.length < 3) {
             $scope.likes.push(genres);
-            console.log($scope.likes);
+            $(event.target).addClass('hidden');
+            $(event.target).siblings('.hidden').removeClass('hidden')
         }
     }
     $scope.dislikeit = function (genres) {
@@ -24,6 +25,8 @@ app.controller("PickfavController", function ($scope, $http, $location) {
                 $scope.likes.splice(i, 1);
             }
         }
+        $(event.target).addClass('hidden');
+        $(event.target).siblings('.hidden').removeClass('hidden')
     }
     $scope.getLikes = function () {
         if ($scope.likes.length == 0) {

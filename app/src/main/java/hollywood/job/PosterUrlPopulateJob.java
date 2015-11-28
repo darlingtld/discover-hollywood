@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,14 +24,9 @@ public class PosterUrlPopulateJob {
     public void populatePosterUrl() {
         List<Movie> movieList = movieService.getMissingPostUrlMovies(100);
         for (Movie movie : movieList) {
-            try {
-                String posterUrl = picCrawler.getMoviePosterUrl(movie.getTmbdUrl());
-                movie.setPosterUrl(posterUrl);
-                movieService.update(movie);
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
+            String posterUrl = picCrawler.getMoviePosterUrl(movie.getTmbdUrl());
+            movie.setPosterUrl(posterUrl);
+            movieService.update(movie);
         }
     }
 }

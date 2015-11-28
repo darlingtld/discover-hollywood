@@ -18,19 +18,23 @@ public class PicCrawler {
 
     private static final Logger logger = LoggerFactory.getLogger(PicCrawler.class);
 
-    public String getMoviePosterUrl(String tmbdUrl) throws IOException {
+    public String getMoviePosterUrl(String tmbdUrl) {
         if (StringUtils.isEmpty(tmbdUrl)) {
-            throw new RuntimeException("empty tmbdUrl");
+            logger.error("empty tmbdUrl");
+            return null;
+        } else {
+            try {
+                logger.info("try to get img from {}", tmbdUrl);
+                Document doc = Jsoup.connect(tmbdUrl).userAgent("Mozilla").timeout(30000).get();
+                Elements eles = doc.select("#upload_poster");
+                String imgUrl = eles.get(0).attr("src");
+                logger.info("img src from {} is {}", tmbdUrl, imgUrl);
+                return imgUrl;
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+                return null;
+            }
         }
-        logger.info("try to get img from {}", tmbdUrl);
-
-        Document doc = Jsoup.connect(tmbdUrl).userAgent("Mozilla").timeout(30000).get();
-        Elements eles = doc.select("#upload_poster");
-
-        String imgUrl = eles.get(0).attr("src");
-
-        logger.info("img src from {} is {}", tmbdUrl, imgUrl);
-        return imgUrl;
     }
 
     public static void main(String[] args) throws IOException {

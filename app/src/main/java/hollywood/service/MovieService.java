@@ -126,12 +126,6 @@ public class MovieService {
     @Transactional
     public String getMovieDescription(int movieId) {
         Links links = linksDao.getByMovieId(movieId);
-        try {
-            return descriptionCrawler.getMovieDescription(Utils.generateTmbdUrl(links.getTmbdId()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-        }
-        return "No description was found";
+        return descriptionCrawler.getMovieDescription(Utils.generateTmbdUrl(links.getTmbdId()));
     }
 }

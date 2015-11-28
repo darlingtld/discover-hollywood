@@ -25,6 +25,12 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
         $location.path("/login")
     } else {
         _showLogin();
+        if ($scope.user.favouriteMovieList == null) {
+            $location.path("/pickfav");
+        } else {
+            $location.path("/moviehall");
+        }
+
     }
 
     $scope.signin = function () {
