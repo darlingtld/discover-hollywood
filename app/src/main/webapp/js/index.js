@@ -54,11 +54,7 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
     };
 
     $scope.search = function () {
-        $http.post("movie/search", {
-            "keyword": $scope.keyword
-        }).success(function (data, status, headers, config) {
-            console.log(data)
-        });
+        $location.path("/search/" + $scope.keyword);
     };
 
 
@@ -93,6 +89,9 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).when('/moviehall', {
         controller: 'MoviehallController',
         templateUrl: 'includes/moviehall.html'
+    }).when('/search/:keyword', {
+        controller: 'SearchController',
+        templateUrl: 'includes/search.html'
     }).otherwise({
         redirectTo: '/login'
     });

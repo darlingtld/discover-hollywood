@@ -2,6 +2,7 @@ package hollywood.service;
 
 import hollywood.LuceneSearcher;
 import hollywood.Utils;
+import hollywood.crawler.DescriptionCrawler;
 import hollywood.dao.LinksDao;
 import hollywood.dao.MovieDao;
 import hollywood.pojo.Genres;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,9 @@ public class MovieService {
     @Autowired
     private LuceneSearcher luceneSearcher;
 
+    @Autowired
+    private DescriptionCrawler descriptionCrawler;
+
     @Transactional
     public Movie getById(int movieId) {
         logger.info("get movie by id {}", movieId);
@@ -47,10 +52,10 @@ public class MovieService {
     }
 
     @Transactional
-    public List<Movie> search(String keyword) {
+    public List<Movie> search(String keyword, int limit) {
         logger.info("search by keyword {}", keyword);
         try {
-            List<Movie> movieList = luceneSearcher.getMovieResult(keyword, 10);
+            List<Movie> movieList = luceneSearcher.getMovieResult(keyword, limit);
             fillUrls4MovieList(movieList);
 
             return movieList;
@@ -116,5 +121,17 @@ public class MovieService {
             movieMaps.put(genres.getGenres(), getMoviesByGenres(genres.getGenres(), 6));
         }
         return movieMaps;
+    }
+
+    @Transactional
+    public String getMovieDescription(int movieId) {
+        Links links = linksDao.getByMovieId(movieId);
+        try {
+            return descriptionCrawler.getMovieDescription(Utils.generateTmbdUrl(links.getTmbdId()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+        }
+        return "No description was found";
     }
 }

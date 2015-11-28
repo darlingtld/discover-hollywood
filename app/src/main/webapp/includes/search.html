@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row" ng-repeat="movie in movieList">
+        <div class="col-md-3">
+            <img class="poster" ng-src="{{movie.posterUrl}}">
+        </div>
+        <div class="col-md-9">
+            <span ng-bind="getMovieDescription(movie.movieId)"></span>
+        </div>
+    </div>
+</div>

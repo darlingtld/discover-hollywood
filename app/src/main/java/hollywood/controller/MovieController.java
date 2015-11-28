@@ -30,7 +30,7 @@ public class MovieController {
     @ResponseBody
     List<Movie> searchMovie(@RequestBody JSONObject searchStub, HttpServletResponse response) {
         String keyword = searchStub.getString("keyword");
-        return movieService.search(keyword);
+        return movieService.search(keyword, 20);
     }
 
     @RequestMapping(value = "autocomplete", method = RequestMethod.POST, headers = "content-type=application/json")
@@ -38,7 +38,7 @@ public class MovieController {
     @ResponseBody
     List<String> autocompleteSearch(@RequestBody JSONObject searchStub, HttpServletResponse response) {
         String keyword = searchStub.getString("keyword");
-        List<Movie> movieList = movieService.search(keyword);
+        List<Movie> movieList = movieService.search(keyword, 10);
         return movieList.stream().map(Movie::getTitle).collect(Collectors.toList());
     }
 
@@ -63,6 +63,16 @@ public class MovieController {
             movieGenresMap.putIfAbsent(genres, movieList.get(genres));
         }
         return movieGenresMap;
+    }
+
+    @RequestMapping(value = "description/{movieId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONObject getMovieDescription(@PathVariable("movieId") int movieId) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("movieId", movieId);
+        jsonObject.put("description", movieService.getMovieDescription(movieId));
+        return jsonObject;
     }
 
 }
