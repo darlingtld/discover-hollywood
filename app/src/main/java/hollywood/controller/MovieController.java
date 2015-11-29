@@ -75,4 +75,11 @@ public class MovieController {
         return jsonObject;
     }
 
+    @RequestMapping(value = "rate_highest/{limit}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getHighestRatedMovies(@PathVariable("limit") int limit) {
+        return movieService.getHighestRatedMovies(limit);
+    }
+
 }

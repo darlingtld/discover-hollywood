@@ -1,10 +1,23 @@
 <div class="container">
     <div class="row" ng-repeat="movie in movieList">
-        <div class="col-md-3">
+        <div class="box col-md-3">
             <img class="poster" ng-src="{{movie.posterUrl}}">
         </div>
-        <div class="col-md-9">
-            <span ng-bind="movie.description"></span>
+        <div class="box col-md-9">
+            <div class="description">
+                <span ng-bind="movie.description | limitSize"></span>
+            </div>
+            <div class="info">
+                <div class="detail">
+                    <a href="{{movie.movieUrl}}" class="btn btn-success btn-sm">view in movieLens.org</a>
+                    <a href="{{movie.imbdUrl}}" class="btn btn-primary btn-sm">view in tmdb.com</a>
+                    <a href="{{movie.tmbdUrl}}" class="btn btn-info btn-sm">view in themoviedb.org</a>
+                </div>
+                <div class="rating">
+                    Rating:
+                    <star star-count="{{movie.avgRating}}"></star>
+                </div>
+            </div>
         </div>
     </div>
 </div>

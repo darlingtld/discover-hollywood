@@ -7,8 +7,8 @@ import java.util.Date;
  * Created by lingda on 2015/11/28.
  */
 @Entity
-@Table(name = "index_gen_tracker")
-public class IndexGenTracker {
+@Table(name = "job_tracker")
+public class JobTracker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,7 +23,7 @@ public class IndexGenTracker {
 
     @Override
     public String toString() {
-        return "IndexGenTracker{" +
+        return "JobTracker{" +
                 "id=" + id +
                 ", job='" + job + '\'' +
                 ", lastId=" + lastId +

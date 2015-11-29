@@ -1,96 +1,45 @@
 <div class="container">
     <div class="row">
         <div class="row banner">
-            <h2>The most liked movies</h2>
+            <h2>You would like these movies</h2>
             <span class="banner-description">We recommend these movies</span>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-2" ng-repeat="movie in movieRateHighest">
                 <div class="thumbnail">
-                    <img src="img/Titanic.png">
+                    <img class="hall-img" ng-src="{{movie.posterUrl}}">
 
                     <div class="caption">
-                        <h3>Thumbnail label</h3>
+                        <h4 ng-bind="movie.title"></h4>
 
-                        <p>...</p>
-
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
+                        Rating:
+                        <star star-count="{{movie.avgRating}}"></star>
+                        <p>
+                            <button class="rate-btn btn btn-success btn-block">Let me rate</button>
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
+        </div>
+    </div>
+    <div class="row">
+        <div class="row banner">
+            <h2>The highest rated movies</h2>
+            <span class="banner-description">Everyone loves these movies</span>
+        </div>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="movie in movieRateHighest">
                 <div class="thumbnail">
-                    <img src="img/Titanic.png">
+                    <img ng-src="{{movie.posterUrl}}">
 
                     <div class="caption">
-                        <h3>Thumbnail label</h3>
+                        <h4 ng-bind="movie.title"></h4>
 
-                        <p>...</p>
+                        Rating:
+                        <star star-count="{{movie.avgRating}}"></star>
 
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <img src="img/Titanic.png">
-
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-
-                        <p>...</p>
-
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <img src="img/Titanic.png">
-
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-
-                        <p>...</p>
-
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <img src="img/Titanic.png">
-
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-
-                        <p>...</p>
-
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="thumbnail">
-                    <img src="img/Titanic.png">
-
-                    <div class="caption">
-                        <h3>Thumbnail label</h3>
-
-                        <p>...</p>
-
-                        <p><a href="#" class="btn btn-primary" role="button">Button</a>
-                            <a href="#" class="btn btn-default" role="button">Button</a>
+                        <p>
+                            <button class="rate-btn btn btn-success btn-block">Let me rate</button>
                         </p>
                     </div>
                 </div>

@@ -7,3 +7,16 @@ app.controller("SearchController", function ($scope, $http, $routeParams) {
         $scope.movieList = data;
     });
 });
+
+app.filter('limitSize', function () {
+    return function (text) {
+        if (text == null) {
+            return;
+        }
+        if (text.length <= 300) {
+            return text;
+        } else {
+            return text.substr(0, 300) + "...";
+        }
+    };
+});

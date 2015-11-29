@@ -20,7 +20,7 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
     $scope.user = {
         username: sessionStorage["username"],
         userId: sessionStorage["userId"],
-        favouriteGenresList:sessionStorage["favouriteGenresList"]
+        favouriteGenresList: sessionStorage["favouriteGenresList"]
     };
     if ($scope.user.username == null) {
         $location.path("/login")
@@ -84,6 +84,29 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
         $("#signin").show();
         $("#loginsuccess").addClass("hidden");
         $("#search").addClass("hidden");
+    }
+});
+
+app.directive('star', function () {
+    return {
+        restrict: 'AE',
+        scope: {},
+        link: function (scope, element, attr) {
+            var value = attr.starCount;
+            var starHtml = '';
+            if (value == undefined || value == "") {
+                //do nothing
+            } else {
+                var fullStar = value.split('.')[0];
+                for (var i = 0; i < fullStar; i++) {
+                    starHtml += '<span class="glyphicon glyphicon-star"></span>';
+                }
+                if (value.split('.')[1] != undefined) {
+                    starHtml += '<span class="glyphicon glyphicon-star-empty"></span>';
+                }
+            }
+            $(element).html(starHtml);
+        }
     }
 });
 

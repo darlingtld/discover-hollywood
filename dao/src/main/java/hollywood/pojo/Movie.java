@@ -20,12 +20,24 @@ public class Movie {
     private String genres;
     @Column(name = "posterUrl")
     private String posterUrl;
+    @Column(name = "description")
+    private String description;
     @Transient
     private String movieUrl;
     @Transient
     private String imbdUrl;
     @Transient
     private String tmbdUrl;
+    @Transient
+    private double avgRating;
+
+    public double getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(double avgRating) {
+        this.avgRating = avgRating;
+    }
 
     @Override
     public String toString() {
@@ -34,10 +46,19 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", genres='" + genres + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
+                ", description='" + description + '\'' +
                 ", movieUrl='" + movieUrl + '\'' +
                 ", imbdUrl='" + imbdUrl + '\'' +
                 ", tmbdUrl='" + tmbdUrl + '\'' +
                 '}';
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPosterUrl() {

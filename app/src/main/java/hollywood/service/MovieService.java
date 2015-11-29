@@ -3,8 +3,10 @@ package hollywood.service;
 import hollywood.LuceneSearcher;
 import hollywood.Utils;
 import hollywood.crawler.DescriptionCrawler;
+import hollywood.dao.AvgRatingDao;
 import hollywood.dao.LinksDao;
 import hollywood.dao.MovieDao;
+import hollywood.pojo.AvgRating;
 import hollywood.pojo.Genres;
 import hollywood.pojo.Links;
 import hollywood.pojo.Movie;
@@ -14,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,9 @@ public class MovieService {
 
     @Autowired
     private DescriptionCrawler descriptionCrawler;
+
+    @Autowired
+    private AvgRatingDao avgRatingDao;
 
     @Transactional
     public Movie getById(int movieId) {
@@ -74,7 +78,14 @@ public class MovieService {
                 movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
                 movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
                 movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));
-                movie.setPosterUrl(movieDao.getById(movie.getMovieId()).getPosterUrl());
+                AvgRating avgRating = avgRatingDao.getRatingByMovieId(movie.getMovieId());
+                if (avgRating != null) {
+                    movie.setAvgRating(avgRating.getAvgRating());
+                }
+//                TODO too many db interactions here
+                Movie movieInDB = movieDao.getById(movie.getMovieId());
+                movie.setPosterUrl(movieInDB.getPosterUrl());
+                movie.setDescription(movieInDB.getDescription());
             } catch (Exception e) {
                 e.printStackTrace();
                 logger.error(e.getMessage());
@@ -127,5 +138,25 @@ public class MovieService {
     public String getMovieDescription(int movieId) {
         Links links = linksDao.getByMovieId(movieId);
         return descriptionCrawler.getMovieDescription(Utils.generateTmbdUrl(links.getTmbdId()));
+    }
+
+    @Transactional
+    public List<Movie> getMissingDescriptionMovies(int count) {
+        List<Movie> movieList = movieDao.getMissingDescriptionMovies(count);
+        fillUrls4MovieList(movieList);
+        return movieList;
+    }
+
+    @Transactional
+    public List<Movie> getHighestRatedMovies(int limit) {
+        List<AvgRating> avgRatingList = avgRatingDao.getHighestRatedMovies(limit);
+        List<Movie> movieList = new ArrayList<>();
+        for (AvgRating avgRating : avgRatingList) {
+            Movie movie = getById(avgRating.getMovieId());
+            movie.setAvgRating(avgRating.getAvgRating());
+            movieList.add(movie);
+        }
+        fillUrls4MovieList(movieList);
+        return movieList;
     }
 }
