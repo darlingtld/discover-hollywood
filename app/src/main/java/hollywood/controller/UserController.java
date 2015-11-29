@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- * Created by tangl9 on 2015-10-14.
- */
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/user")

@@ -57,6 +57,7 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
     $scope.logout = function () {
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("userId");
+        sessionStorage.removeItem("favouriteGenresList");
         $location.path("/login");
         _hideLogin();
     };

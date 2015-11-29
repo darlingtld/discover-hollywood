@@ -12,6 +12,7 @@
         <module>dao</module>
         <module>utility</module>
         <module>engine-search</module>
+        <module>engine-recommend</module>
     </modules>
     <packaging>pom</packaging>
 

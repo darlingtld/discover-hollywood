@@ -16,9 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-/**
- * Created by tangl9 on 2015-10-14.
- */
+
 @Scope("prototype")
 @Controller
 @RequestMapping("/movie")

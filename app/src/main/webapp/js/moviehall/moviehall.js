@@ -3,9 +3,15 @@
  */
 var app = angular.module("MyApp");
 app.controller("MoviehallController", function ($scope, $http, $location) {
+    $http.post("recommend/genres/6", {
+        favouriteGenresList: sessionStorage["favouriteGenresList"]
+    }).success(function (data) {
+        $scope.movieRecByGenres = data;
+    });
+
     $http.get("movie/rate_highest/6").success(function (data) {
         $scope.movieRateHighest = data;
-    })
+    });
 
     $scope.rateMap = [
         {name: "0.5 ☆", value: "0.5"},
