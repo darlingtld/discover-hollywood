@@ -8,6 +8,7 @@ app.controller("LoginController", function ($scope, $rootScope, $http, $location
             if (data) {
                 sessionStorage["username"] = data.username;
                 sessionStorage["userId"] = data.userId;
+
                 $(".modal-backdrop").remove();
                 $("#signin").hide();
                 $("#loginsuccess").removeClass("hidden");

@@ -4,7 +4,10 @@
             <h2>Tell us your style.
 
                 <span class="likes" ng-bind="getLikes()"></span>
-                <button class="btn btn-success pull-right g-movie-hall">Go to the movie hall</button>
+                <button class="btn btn-success pull-right g-movie-hall"
+                        ng-class="{true: 'hidden',false:''}[likes.length<3]" ng-click="goToMovieHall()">
+                    Go to the movie hall
+                </button>
             </h2>
             <span class="banner-description">Choose three movie groups that you love~~</span>
         </div>

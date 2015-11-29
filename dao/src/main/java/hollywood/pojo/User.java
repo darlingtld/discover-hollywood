@@ -17,7 +17,7 @@ public class User {
     private String username;
     private String password;
     private List<Movie> favouriteMovieList;
-    private List<Genres> favouriteGenresList;
+    private List<String> favouriteGenresList;
     private List<Integer> friendIdList;
     private Date lastLoginTime;
 
@@ -61,11 +61,11 @@ public class User {
         this.favouriteMovieList = favouriteMovieList;
     }
 
-    public List<Genres> getFavouriteGenresList() {
+    public List<String> getFavouriteGenresList() {
         return favouriteGenresList;
     }
 
-    public void setFavouriteGenresList(List<Genres> favouriteGenresList) {
+    public void setFavouriteGenresList(List<String> favouriteGenresList) {
         this.favouriteGenresList = favouriteGenresList;
     }
 

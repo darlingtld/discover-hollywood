@@ -19,13 +19,14 @@ app.factory('MovieRetriever', function ($http, $q) {
 app.controller('IndexController', function ($scope, $location, $http, MovieRetriever) {
     $scope.user = {
         username: sessionStorage["username"],
-        userId: sessionStorage["userId"]
+        userId: sessionStorage["userId"],
+        favouriteGenresList:sessionStorage["favouriteGenresList"]
     };
     if ($scope.user.username == null) {
         $location.path("/login")
     } else {
         _showLogin();
-        if ($scope.user.favouriteMovieList == null) {
+        if ($scope.user.favouriteGenresList == null) {
             $location.path("/pickfav");
         } else {
             $location.path("/moviehall");
@@ -42,6 +43,7 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
             if (data) {
                 sessionStorage["username"] = data.username;
                 sessionStorage["userId"] = data.userId;
+                sessionStorage["favouriteGenresList"] = data.favouriteGenresList;
                 _showLogin();
                 $location.path("/pickfav");
             } else {

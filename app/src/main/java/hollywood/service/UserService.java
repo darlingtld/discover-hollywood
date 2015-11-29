@@ -3,12 +3,16 @@ package hollywood.service;
 import com.alibaba.druid.util.StringUtils;
 import hollywood.PasswordEncryptUtil;
 import hollywood.dao.UserDao;
+import hollywood.pojo.Genres;
 import hollywood.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lingda on 2015/11/27.
@@ -52,5 +56,11 @@ public class UserService {
                 return userDao.saveUser(username, password);
             }
         }
+    }
+
+    @Transactional
+    public User addFavouriteGenresList(int userId, List<String> favGenresList) {
+        logger.info("add favourite genres list {} to user {}", favGenresList, userId);
+        return userDao.addFavouriteGenresList(userId, favGenresList);
     }
 }

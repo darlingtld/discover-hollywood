@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by tangl9 on 2015-10-14.
@@ -47,12 +48,19 @@ public class UserController {
         }
     }
 
+    /**
+     * user sign up
+     *
+     * @param registerStub
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "signup", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    User signup(@RequestBody JSONObject loginStub, HttpServletResponse response) {
-        String username = loginStub.getString("username");
-        String password = loginStub.getString("password");
+    User signup(@RequestBody JSONObject registerStub, HttpServletResponse response) {
+        String username = registerStub.getString("username");
+        String password = registerStub.getString("password");
         try {
             return userService.signup(username, password);
         } catch (Exception e) {
@@ -60,6 +68,15 @@ public class UserController {
             response.setStatus(HttpStatus.EXPECTATION_FAILED.value());
             return null;
         }
+    }
+
+    @RequestMapping(value = "favourite_genres/add", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    User addFavouriteGenresList(@RequestBody JSONObject favMovieStub, HttpServletResponse response) {
+        int userId = favMovieStub.getInteger("userId");
+        List<String> favGenresList = (List<String>) favMovieStub.get("favGenresList");
+        return userService.addFavouriteGenresList(userId, favGenresList);
     }
 
 }

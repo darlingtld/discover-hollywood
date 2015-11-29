@@ -18,7 +18,7 @@ public enum Genres {
     Musical("Musical"),
     Mystery("Mystery"),
     Romance("Romance"),
-    SciFi("SciFi"),
+    SciFi("Sci-Fi"),
     Thriller("Thriller"),
     War("War"),
     Western("Western");

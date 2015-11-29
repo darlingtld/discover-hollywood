@@ -2,11 +2,17 @@ package hollywood.dao;
 
 import hollywood.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -20,7 +26,7 @@ public class UserDao {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public User getById(String id) {
+    public User getById(int id) {
         Query query = new Query(Criteria.where("userId").is(id));
         return mongoTemplate.findOne(query, User.class);
     }
@@ -37,5 +43,20 @@ public class UserDao {
         user.setPassword(password);
         mongoTemplate.save(user);
         return getByUsername(username);
+    }
+
+    public User addFavouriteGenresList(int userId, List<String> favGenresList) {
+        User user = getById(userId);
+        List<String> userGenresList = user.getFavouriteGenresList();
+        if (userGenresList != null) {
+            Set<String> genresSet = new HashSet<>();
+            genresSet.addAll(userGenresList);
+            genresSet.addAll(favGenresList);
+            favGenresList = new ArrayList<>(genresSet);
+        }
+        Query query = new Query(Criteria.where("userId").is(userId));
+        Update update = new Update();
+        update.set("favouriteGenresList", favGenresList);
+        return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
     }
 }

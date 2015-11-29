@@ -16,7 +16,7 @@ app.controller("PickfavController", function ($scope, $http, $location) {
         if ($scope.likes.length < 3) {
             $scope.likes.push(genres);
             $(event.target).addClass('hidden');
-            $(event.target).siblings('.hidden').removeClass('hidden')
+            $(event.target).siblings('.hidden').removeClass('hidden');
         }
     }
     $scope.dislikeit = function (genres) {
@@ -26,7 +26,7 @@ app.controller("PickfavController", function ($scope, $http, $location) {
             }
         }
         $(event.target).addClass('hidden');
-        $(event.target).siblings('.hidden').removeClass('hidden')
+        $(event.target).siblings('.hidden').removeClass('hidden');
     }
     $scope.getLikes = function () {
         if ($scope.likes.length == 0) {
@@ -37,4 +37,15 @@ app.controller("PickfavController", function ($scope, $http, $location) {
                 });
         }
     };
+
+    $scope.goToMovieHall = function () {
+        $http.post('user/favourite_genres/add',
+            {
+                userId: sessionStorage['userId'],
+                favGenresList: $scope.likes
+            }).success(function (data) {
+            sessionStorage["favouriteGenresList"] = data.favouriteGenresList;
+            $location.path("/moviehall");
+        })
+    }
 });
