@@ -3,6 +3,10 @@
     height: 200px;
 }
 
-.rate-btn{
-    margin-top:10px;
+.rate-btn {
+    margin-top: 10px;
+}
+
+.rating-select {
+    width: 80%;
 }

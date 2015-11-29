@@ -2,7 +2,9 @@ package hollywood.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import hollywood.pojo.Movie;
+import hollywood.pojo.Rating;
 import hollywood.service.MovieService;
+import hollywood.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ public class MovieController {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private RatingService ratingService;
 
     @RequestMapping(value = "search", method = RequestMethod.POST, headers = "content-type=application/json")
     public
@@ -81,5 +86,13 @@ public class MovieController {
     List<Movie> getHighestRatedMovies(@PathVariable("limit") int limit) {
         return movieService.getHighestRatedMovies(limit);
     }
+
+    @RequestMapping(value = "rate", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    void rateMovie(@RequestBody Rating rating) {
+        ratingService.save(rating);
+    }
+
 
 }

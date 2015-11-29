@@ -87,7 +87,6 @@ public class MovieService {
                 movie.setPosterUrl(movieInDB.getPosterUrl());
                 movie.setDescription(movieInDB.getDescription());
             } catch (Exception e) {
-                e.printStackTrace();
                 logger.error(e.getMessage());
                 continue;
             }

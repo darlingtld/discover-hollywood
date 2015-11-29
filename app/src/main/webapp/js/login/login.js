@@ -9,7 +9,9 @@ app.controller("LoginController", function ($scope, $rootScope, $http, $location
                 sessionStorage["username"] = data.username;
                 sessionStorage["userId"] = data.userId;
 
-                $(".modal-backdrop").remove();
+                $("#signupModal .close").click();
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
                 $("#signin").hide();
                 $("#loginsuccess").removeClass("hidden");
                 $("#search").removeClass("hidden");
@@ -21,7 +23,6 @@ app.controller("LoginController", function ($scope, $rootScope, $http, $location
         }).error(function (data, status, headers, config) {
             alert(headers("message"));
         });
-        ;
     };
 
 
