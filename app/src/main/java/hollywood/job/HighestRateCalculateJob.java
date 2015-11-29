@@ -22,7 +22,7 @@ public class HighestRateCalculateJob {
     @Autowired
     private RatingService ratingService;
 
-    public void calculateHigestRateMovies() {
+    public void calculateHighestRateMovies() {
         JobTracker jobTracker = jobTrackerService.getLastTrackerByJob(HIGHEST_RATE_CALCULATE_JOB);
         if (jobTracker != null && jobTracker.getStatus().equals(JobStatus.RUNNING)) {
 //            wait for the next trigger

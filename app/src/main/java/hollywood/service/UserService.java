@@ -3,7 +3,7 @@ package hollywood.service;
 import com.alibaba.druid.util.StringUtils;
 import hollywood.PasswordEncryptUtil;
 import hollywood.dao.UserDao;
-import hollywood.pojo.Genres;
+import hollywood.pojo.Movie;
 import hollywood.pojo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private MovieService movieService;
 
     @Transactional
     public User login(String username, String password) {
@@ -62,5 +64,28 @@ public class UserService {
     public User addFavouriteGenresList(int userId, List<String> favGenresList) {
         logger.info("add favourite genres list {} to user {}", favGenresList, userId);
         return userDao.addFavouriteGenresList(userId, favGenresList);
+    }
+
+    @Transactional
+    public List<User> getAll() {
+        logger.info("get all users");
+        return userDao.getAll();
+    }
+
+    @Transactional
+    public void addRecommendMovieList(int userId, List<Movie> movieList) {
+        logger.info("add recommend movie list to user {}", userId);
+        userDao.addRecommendMovieList(userId, movieList);
+    }
+
+    @Transactional
+    public User getByUserId(int userId) {
+        logger.info("get by user id {}", userId);
+        User user = userDao.getById(userId);
+        List<Movie> movieList = user.getRecommendMovieList();
+        if (movieList != null) {
+            movieService.fillUrls4MovieList(movieList);
+        }
+        return user;
     }
 }

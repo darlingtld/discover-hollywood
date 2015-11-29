@@ -31,4 +31,8 @@ public class AvgRatingDao {
     public List<AvgRating> getHighestRatedMovies(int limit) {
         return sessionFactory.getCurrentSession().createQuery(String.format("from AvgRating order by avgRating desc")).setMaxResults(limit).list();
     }
+
+    public List<AvgRating> getMostRatedMovies(int limit) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from AvgRating order by sampleCount desc")).setMaxResults(limit).list();
+    }
 }

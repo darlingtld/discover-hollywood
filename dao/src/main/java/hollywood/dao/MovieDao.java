@@ -45,4 +45,8 @@ public class MovieDao {
         return sessionFactory.getCurrentSession().createQuery(String.format("from Movie where description is null")).setMaxResults(count).list();
 
     }
+
+    public List<Movie> getRecentlyReleasedMovies(int limit) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from Movie order by movieId desc")).setMaxResults(limit).list();
+    }
 }

@@ -85,6 +85,20 @@ public class MovieController {
         return movieService.getHighestRatedMovies(limit);
     }
 
+    @RequestMapping(value = "rate_most/{limit}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getMostRatedMovies(@PathVariable("limit") int limit) {
+        return movieService.getMostRatedMovies(limit);
+    }
+
+    @RequestMapping(value = "recent/{limit}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getRecentlyReleasedMovies(@PathVariable("limit") int limit) {
+        return movieService.getRecentlyReleasedMovies(limit);
+    }
+
     @RequestMapping(value = "rate", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody

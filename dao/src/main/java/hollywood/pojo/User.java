@@ -18,6 +18,16 @@ public class User {
     private String password;
     private List<Movie> favouriteMovieList;
     private List<String> favouriteGenresList;
+    private List<Movie> recommendMovieList;
+
+    public List<Movie> getRecommendMovieList() {
+        return recommendMovieList;
+    }
+
+    public void setRecommendMovieList(List<Movie> recommendMovieList) {
+        this.recommendMovieList = recommendMovieList;
+    }
+
     private List<Integer> friendIdList;
     private Date lastLoginTime;
 

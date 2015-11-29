@@ -1,5 +1,6 @@
 package hollywood.job;
 
+import hollywood.PropertyHolder;
 import hollywood.crawler.PicCrawler;
 import hollywood.pojo.Movie;
 import hollywood.service.MovieService;
@@ -22,7 +23,7 @@ public class PosterUrlPopulateJob {
 
     @Transactional
     public void populatePosterUrl() {
-        List<Movie> movieList = movieService.getMissingPostUrlMovies(100);
+        List<Movie> movieList = movieService.getMissingPostUrlMovies(PropertyHolder.POSTER_URL_POPULATE_JOB_STEP);
         for (Movie movie : movieList) {
             String posterUrl = picCrawler.getMoviePosterUrl(movie.getTmbdUrl());
             movie.setPosterUrl(posterUrl);

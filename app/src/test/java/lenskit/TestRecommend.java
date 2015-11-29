@@ -32,7 +32,7 @@ public class TestRecommend {
         User user = userService.login("lingda", "123");
         List<ScoredId> scoredIdList = movieRecommender.recommend(user, 5);
         for (ScoredId scoredId : scoredIdList) {
-            System.out.println(scoredId);
+            System.out.println("@@@@ " + scoredId.getId());
         }
     }
 }

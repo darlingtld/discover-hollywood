@@ -1,5 +1,5 @@
 .description {
-    padding: 20px;
+    padding: 10px;
     font-size: x-large;
 }
 
@@ -17,10 +17,19 @@
     float: left;
 }
 
+.detail > a {
+    margin-right: 10px;
+}
+
 .box {
     height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+}
+
+.tags{
+    font-size: medium;
+    color: brown;
 }

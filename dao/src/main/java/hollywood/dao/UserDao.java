@@ -1,5 +1,7 @@
 package hollywood.dao;
 
+import hollywood.PropertyHolder;
+import hollywood.pojo.Movie;
 import hollywood.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
@@ -21,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class UserDao {
     //    just mock some data
-    private static final AtomicInteger userIdGenerator = new AtomicInteger(21051128);
+    private static final AtomicInteger userIdGenerator = new AtomicInteger(PropertyHolder.MOCK_INITIAL_USERID);
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -58,5 +60,16 @@ public class UserDao {
         Update update = new Update();
         update.set("favouriteGenresList", favGenresList);
         return mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+    }
+
+    public List<User> getAll() {
+        return mongoTemplate.findAll(User.class);
+    }
+
+    public void addRecommendMovieList(int userId, List<Movie> movieList) {
+        Query query = new Query(Criteria.where("userId").is(userId));
+        Update update = new Update();
+        update.set("recommendMovieList", movieList);
+        mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
     }
 }

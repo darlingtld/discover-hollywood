@@ -5,14 +5,18 @@
         </div>
         <div class="box col-md-9">
             <div class="description">
-                <h3 ng-bind="movie.title"></h3>
+                <div>
+                    <h3 ng-bind="movie.title"></h3>
+                    <span class="tags">Tags : <span ng-bind="movie.genres"></span></span>
+                </div>
                 <span ng-bind="movie.description | limitSize"></span>
             </div>
             <div class="info">
                 <div class="detail">
-                    <a href="{{movie.movieUrl}}" class="btn btn-success btn-sm">view in movieLens.org</a>
-                    <a href="{{movie.imbdUrl}}" class="btn btn-primary btn-sm">view in tmdb.com</a>
-                    <a href="{{movie.tmbdUrl}}" class="btn btn-info btn-sm">view in themoviedb.org</a>
+                    <a href="{{movie.movieUrl}}" target="_blank" class="btn btn-success btn-sm">view in
+                        movieLens.org</a>
+                    <a href="{{movie.imbdUrl}}" target="_blank" class="btn btn-primary btn-sm">view in tmdb.com</a>
+                    <a href="{{movie.tmbdUrl}}" target="_blank" class="btn btn-info btn-sm">view in themoviedb.org</a>
                 </div>
                 <div class="rating">
                     Rating:

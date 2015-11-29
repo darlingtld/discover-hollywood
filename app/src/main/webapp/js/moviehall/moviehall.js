@@ -2,15 +2,33 @@
  * Created by lingda on 2015/11/28.
  */
 var app = angular.module("MyApp");
-app.controller("MoviehallController", function ($scope, $http, $location) {
-    $http.post("recommend/genres/6", {
-        favouriteGenresList: sessionStorage["favouriteGenresList"]
-    }).success(function (data) {
-        $scope.movieRecByGenres = data;
+app.controller("MoviehallController", function ($scope, $http, $location, userService) {
+    if (sessionStorage["userId"] == null) {
+        $location.path("/login")
+        return;
+    }
+    userService.getUser().then(function (user) {
+        if (user.recommendMovieList == null) {
+            $http.post("recommend/genres/6", {
+                favouriteGenresList: sessionStorage["favouriteGenresList"]
+            }).success(function (data) {
+                $scope.movieRecommendMovieList = data;
+            });
+        } else {
+            $scope.movieRecommendMovieList = user.recommendMovieList.slice(0, 6);
+        }
     });
+
 
     $http.get("movie/rate_highest/6").success(function (data) {
         $scope.movieRateHighest = data;
+    });
+
+    $http.get("movie/rate_most/6").success(function (data) {
+        $scope.movieRateMost = data;
+    });
+    $http.get("movie/recent/6").success(function (data) {
+        $scope.movieNewbies = data;
     });
 
     $scope.rateMap = [

@@ -31,7 +31,7 @@ public class DescriptionCrawler {
 
                 logger.info("description from {} is {}", tmbdUrl, text);
                 return text;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.error(e.getMessage());
                 return "No description was found";
             }

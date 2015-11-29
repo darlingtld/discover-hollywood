@@ -45,7 +45,11 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
                 sessionStorage["userId"] = data.userId;
                 sessionStorage["favouriteGenresList"] = data.favouriteGenresList;
                 _showLogin();
-                $location.path("/pickfav");
+                if (sessionStorage["favouriteGenresList"] == null) {
+                    $location.path("/pickfav");
+                } else {
+                    $location.path("/moviehall");
+                }
             } else {
                 console.log(headers["message"]);
             }

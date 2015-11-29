@@ -10,13 +10,14 @@ app.controller("SearchController", function ($scope, $http, $routeParams) {
 
 app.filter('limitSize', function () {
     return function (text) {
+        var limit = 250;
         if (text == null) {
             return;
         }
-        if (text.length <= 300) {
+        if (text.length <= limit) {
             return text;
         } else {
-            return text.substr(0, 300) + "...";
+            return text.substr(0, limit) + "...";
         }
     };
 });

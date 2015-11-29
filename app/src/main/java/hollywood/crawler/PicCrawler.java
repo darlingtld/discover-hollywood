@@ -30,7 +30,7 @@ public class PicCrawler {
                 String imgUrl = eles.get(0).attr("src");
                 logger.info("img src from {} is {}", tmbdUrl, imgUrl);
                 return imgUrl;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.error(e.getMessage());
                 return null;
             }

@@ -71,7 +71,7 @@ public class MovieService {
     }
 
     @Transactional
-    private void fillUrls4MovieList(List<Movie> movieList) {
+    public void fillUrls4MovieList(List<Movie> movieList) {
         for (Movie movie : movieList) {
             try {
                 Links links = linksDao.getByMovieId(movie.getMovieId());
@@ -155,6 +155,26 @@ public class MovieService {
             movie.setAvgRating(avgRating.getAvgRating());
             movieList.add(movie);
         }
+        fillUrls4MovieList(movieList);
+        return movieList;
+    }
+
+    @Transactional
+    public List<Movie> getMostRatedMovies(int limit) {
+        List<AvgRating> avgRatingList = avgRatingDao.getMostRatedMovies(limit);
+        List<Movie> movieList = new ArrayList<>();
+        for (AvgRating avgRating : avgRatingList) {
+            Movie movie = getById(avgRating.getMovieId());
+            movie.setAvgRating(avgRating.getAvgRating());
+            movieList.add(movie);
+        }
+        fillUrls4MovieList(movieList);
+        return movieList;
+    }
+
+    @Transactional
+    public List<Movie> getRecentlyReleasedMovies(int limit) {
+        List<Movie> movieList = movieDao.getRecentlyReleasedMovies(limit);
         fillUrls4MovieList(movieList);
         return movieList;
     }

@@ -1,5 +1,6 @@
 package hollywood.job;
 
+import hollywood.PropertyHolder;
 import hollywood.crawler.DescriptionCrawler;
 import hollywood.pojo.Movie;
 import hollywood.service.MovieService;
@@ -22,7 +23,7 @@ public class DescriptionPopulateJob {
 
     @Transactional
     public void populateDescription() {
-        List<Movie> movieList = movieService.getMissingDescriptionMovies(100);
+        List<Movie> movieList = movieService.getMissingDescriptionMovies(PropertyHolder.DESCRIPTION_POPULATE_JOB_STEP);
         for (Movie movie : movieList) {
             String description = descriptionCrawler.getMovieDescription(movie.getTmbdUrl());
             movie.setDescription(description);

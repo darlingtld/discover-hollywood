@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -75,6 +72,13 @@ public class UserController {
         int userId = favMovieStub.getInteger("userId");
         List<String> favGenresList = (List<String>) favMovieStub.get("favGenresList");
         return userService.addFavouriteGenresList(userId, favGenresList);
+    }
+
+    @RequestMapping(value = "{userId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    User getByUserId(@PathVariable("userId") int userId) {
+        return userService.getByUserId(userId);
     }
 
 }

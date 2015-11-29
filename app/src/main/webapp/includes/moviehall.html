@@ -5,9 +5,9 @@
             <span class="banner-description">We recommend these movies</span>
         </div>
         <div class="row">
-            <div class="col-md-2" ng-repeat="movie in movieRecByGenres">
+            <div class="col-md-2" ng-repeat="movie in movieRecommendMovieList">
                 <div class="thumbnail">
-                    <img class="hall-img" ng-src="{{movie.posterUrl}}">
+                    <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
 
                     <div class="caption">
                         <h4 ng-bind="movie.title"></h4>
@@ -32,7 +32,57 @@
         <div class="row">
             <div class="col-md-2" ng-repeat="movie in movieRateHighest">
                 <div class="thumbnail">
-                    <img ng-src="{{movie.posterUrl}}">
+                    <a href="{{movie.tmbdUrl}}" target="_blank"><img ng-src="{{movie.posterUrl}}"></a>
+
+                    <div class="caption">
+                        <h4 ng-bind="movie.title"></h4>
+
+                        Rating:
+                        <star star-count="{{movie.avgRating}}"></star>
+
+                        <p>
+                            <button class="rate-btn btn btn-success btn-block">Let me rate</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row banner">
+            <h2>The most rated movies</h2>
+            <span class="banner-description">Many folks have rated these movies</span>
+        </div>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="movie in movieRateMost">
+                <div class="thumbnail">
+                    <a href="{{movie.tmbdUrl}}" target="_blank"><img ng-src="{{movie.posterUrl}}"></a>
+
+                    <div class="caption">
+                        <h4 ng-bind="movie.title"></h4>
+
+                        Rating:
+                        <star star-count="{{movie.avgRating}}"></star>
+
+                        <p>
+                            <button class="rate-btn btn btn-success btn-block">Let me rate</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row banner">
+            <h2>The recently released movies</h2>
+            <span class="banner-description">Newbies~~</span>
+        </div>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="movie in movieNewbies">
+                <div class="thumbnail">
+                    <a href="{{movie.tmbdUrl}}" target="_blank"><img ng-src="{{movie.posterUrl}}"></a>
 
                     <div class="caption">
                         <h4 ng-bind="movie.title"></h4>
