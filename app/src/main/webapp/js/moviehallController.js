@@ -12,7 +12,7 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     }
     //if user's recommended movie list has not been calculated by lenskit, then just get his/her genres style ones
     userService.getUser().then(function (user) {
-        if (user.recommendMovieList == null) {
+        if (user.recommendMovieList == null || user.recommendMovieList.length == 0) {
             $http.post("recommend/genres/6", {
                 favouriteGenresList: sessionStorage["favouriteGenresList"]
             }).success(function (data) {
