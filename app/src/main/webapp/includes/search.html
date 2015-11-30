@@ -18,10 +18,44 @@
                     <a href="{{movie.imbdUrl}}" target="_blank" class="btn btn-primary btn-sm">view in tmdb.com</a>
                     <a href="{{movie.tmbdUrl}}" target="_blank" class="btn btn-info btn-sm">view in themoviedb.org</a>
                 </div>
+
+                <div class="user-rate">
+                    <button class="btn btn-success btn-sm" data-toggle="modal"
+                            data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
+                    </button>
+                </div>
                 <div class="rating">
                     Rating:
                     <star star-count="{{movie.avgRating}}"></star>
                 </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rateModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Rate this movie
+                </h4>
+            </div>
+            <div class="modal-body">
+                <select ng-model="rating" ng-options="t.name for t in rateMap track by t.value"
+                        class="form-control">
+                    <option value="">--- Rate this movie ---</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="rate()">Submit</button>
             </div>
         </div>
     </div>

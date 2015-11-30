@@ -13,6 +13,11 @@
     margin-left: 100px;
 }
 
+.user-rate {
+    float: right;
+    margin-left: 20px;
+}
+
 .detail {
     float: left;
 }
@@ -29,7 +34,7 @@
     align-items: center;
 }
 
-.tags{
+.tags {
     font-size: medium;
     color: brown;
 }
