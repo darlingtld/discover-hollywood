@@ -18,18 +18,32 @@ public class JobTrackerService {
     @Autowired
     private JobTrackerDao jobTrackerDao;
 
+    /**
+     * get last job information of jobname
+     * @param job
+     * @return
+     */
     @Transactional
     public JobTracker getLastTrackerByJob(String job){
         logger.info("get last index gen tracker by job {}", job);
         return jobTrackerDao.getLastTrackerByJob(job);
     }
 
+    /**
+     * save job tracker
+     * @param jobTracker
+     * @return
+     */
     @Transactional
     public int save(JobTracker jobTracker) {
         logger.info("save jobTracker {}", jobTracker);
         return jobTrackerDao.save(jobTracker);
     }
 
+    /**
+     * update jobTracker
+     * @param jobTracker
+     */
     @Transactional
     public void update(JobTracker jobTracker) {
         logger.info("update jobTracker {}", jobTracker);

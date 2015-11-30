@@ -16,7 +16,4 @@
     
     start mongodb: mongod --dbpath d:\Mongodbdata
 
-4. install redis (not used for now)
-    refer to http://redis.io/
-    for windows, https://github.com/MSOpenTech/redis/releases
-    run with 'redis-server'
+4. run the db_init files to initialize the database
