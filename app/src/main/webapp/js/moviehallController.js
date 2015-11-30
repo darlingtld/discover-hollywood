@@ -6,6 +6,9 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     if (sessionStorage["userId"] == null) {
         $location.path("/login")
         return;
+    } else if(sessionStorage["favouriteGenresList"] == null){
+        $location.path("/pickfav")
+        return;
     }
     //if user's recommended movie list has not been calculated by lenskit, then just get his/her genres style ones
     userService.getUser().then(function (user) {
