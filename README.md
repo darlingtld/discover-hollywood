@@ -1,5 +1,7 @@
 # discover-hollywood
 Discover-hollywood help people navigate and explore movies
+for demo: http://210.71.198.101:8080/app
+you can register yourself to find it out or you can use a test account "lingda/123"
 
 # Project structure
 Discover-hollywood is a web application.  People can sign up to search their loved movies and give rates to other movies. The system will recommend to users their possibly interested movies based on their rating history.
