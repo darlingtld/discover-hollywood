@@ -21,6 +21,13 @@ public class RecommendController {
     @Autowired
     private RecommendService recommendService;
 
+    /**
+     * get list of movies of this genres
+     * @param jsonObject a list of genres separted by comma
+     * @param limit
+     * @param response
+     * @return movie list
+     */
     @RequestMapping(value = "genres/{limit}", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody

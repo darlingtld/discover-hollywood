@@ -19,7 +19,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath*:mvc-dispatcher-servlet.xml"})
-public class TestRecommend {
+public class RecommendTest {
 
     @Autowired
     private MovieRecommender movieRecommender;

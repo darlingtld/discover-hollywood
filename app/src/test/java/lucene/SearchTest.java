@@ -17,7 +17,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath*:mvc-dispatcher-servlet.xml"})
-public class TestSearch {
+public class SearchTest {
 
     @Autowired
     private LuceneSearcher luceneSearcher;
@@ -27,7 +27,6 @@ public class TestSearch {
         try {
             Long startTime = System.currentTimeMillis();
             List<Movie> result = luceneSearcher.searchMoviesByTitle("s", 6);
-            int i = 0;
             for (Movie bean : result) {
                 System.out.println(bean);
             }

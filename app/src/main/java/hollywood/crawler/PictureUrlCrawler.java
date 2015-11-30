@@ -14,9 +14,9 @@ import java.io.IOException;
  * Created by lingda on 2015/11/28.
  */
 @Service
-public class PicCrawler {
+public class PictureUrlCrawler {
 
-    private static final Logger logger = LoggerFactory.getLogger(PicCrawler.class);
+    private static final Logger logger = LoggerFactory.getLogger(PictureUrlCrawler.class);
 
     public String getMoviePosterUrl(String tmbdUrl) {
         if (StringUtils.isEmpty(tmbdUrl)) {
@@ -38,6 +38,6 @@ public class PicCrawler {
     }
 
     public static void main(String[] args) throws IOException {
-        System.out.println(new PicCrawler().getMoviePosterUrl("https://www.themoviedb.org/movie/10997"));
+        System.out.println(new PictureUrlCrawler().getMoviePosterUrl("https://www.themoviedb.org/movie/10997"));
     }
 }

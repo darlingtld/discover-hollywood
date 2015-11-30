@@ -13,7 +13,7 @@ Three main parts of the system:
 
 # Backend
 For backend development, Java is used as the main programming language.  SpringMVC is chosen to be the main framework to build this system.  Several datasets are provied by GroupLens.org, which is movies, links, tags and ratings.  These four are sort of relational objects.  So I used MySQL database to store these data.  Further input can easily be inserted or appended into the database.
-Hibernate is used to do the object relational mapping for movies, links, tags, ratings and other tables.  Together with hibernate, in this project, I choose Alibaba Druid to serve as the database connection pool and monitoring tool.  
+Hibernate is used to do the object relational mapping for movies, links, tags, ratings and other tables.  Together with hibernate, in this project, I choose Alibaba Druid to serve as the database connection pool and monitoring tool.  You can the statistics here http://210.71.198.101:8080/app/druid  
 Users in discover-hollywood can rate movies and make friends.  For the data structure of users, a list of favourite movies, recommended movies and rated movies are linked together with one user.(relationship of friends has also been taken into consideration).  So MongoDB is the one I choose to store the data structure like users in discover-hollywood.
 Spring-Data can work well with MongoDB.  Thus it serves as a dao layer of this project.  Maven is used to manage all the dependencies during the development.
 

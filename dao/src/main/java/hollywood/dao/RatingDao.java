@@ -27,4 +27,8 @@ public class RatingDao {
     public List<Rating> getRatingsByIdRange(int fromId, int toId) {
         return sessionFactory.getCurrentSession().createQuery(String.format("from Rating where id >= %d and id <=%d", fromId, toId)).list();
     }
+
+    public Rating getRatingByMovieIdAndUserId(int movieId, int userId) {
+        return (Rating) sessionFactory.getCurrentSession().createQuery(String.format("from Rating where movieId=%d and userId=%d", movieId, userId)).uniqueResult();
+    }
 }

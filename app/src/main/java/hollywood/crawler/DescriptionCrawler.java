@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 @Service
 public class DescriptionCrawler {
-    private static final Logger logger = LoggerFactory.getLogger(PicCrawler.class);
+    private static final Logger logger = LoggerFactory.getLogger(PictureUrlCrawler.class);
 
     public String getMovieDescription(String tmbdUrl) {
         if (StringUtils.isEmpty(tmbdUrl)) {
@@ -38,7 +38,4 @@ public class DescriptionCrawler {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(new DescriptionCrawler().getMovieDescription("https://www.themoviedb.org/movie/10997"));
-    }
 }

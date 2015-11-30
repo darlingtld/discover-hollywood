@@ -50,10 +50,17 @@ public class RatingService {
         return ratingDao.getMaxId();
     }
 
+    /**
+     * main function to calculate ratings.  generate average ratings, total ratings and rating counts
+     * it shall combine with the previous result to make sure its accuracy
+     * @param lastId
+     * @return
+     */
     @Transactional
     public int calculateRatings(int lastId) {
         logger.info("calculate ratings - average score.  starting from ratings id {}", lastId);
         int id = lastId;
+//        the step count
         int limit = 500;
         HashMap<Integer, AvgRating> avgRatingHashMap = new HashMap<>();
         List<Rating> ratingList = ratingDao.getRatingsByIdRange(id, id + limit);
@@ -86,7 +93,11 @@ public class RatingService {
             }
         }
 
-
         return ratingList.get(ratingList.size() - 1).getId();
+    }
+
+    public Rating getRatingByMovieIdAndUserId(int movieId, int userId) {
+        logger.info("get rating by movie id {} and user id {}", movieId, userId);
+        return ratingDao.getRatingByMovieIdAndUserId(movieId, userId);
     }
 }

@@ -21,8 +21,15 @@ public class RecommendService {
     @Autowired
     private MovieService movieService;
 
+    /**
+     * recommend to users based on the give genres list
+     * @param genresList
+     * @param limit
+     * @return
+     */
     @Transactional
     public List<Movie> recommendByGenres(List<String> genresList, int limit) {
+        logger.info("recommend by genres {}", genresList);
         List<Movie> movieList = new ArrayList<>();
         for (String genres : genresList) {
             movieList.addAll(movieService.getMoviesByGenres(genres, limit));

@@ -100,6 +100,9 @@ public class MovieService {
     @Transactional
     public void fillUrls4Movie(Movie movie, boolean isRatingNeeded) {
         Links links = linksDao.getByMovieId(movie.getMovieId());
+        if (links == null) {
+            return;
+        }
         movie.setMovieUrl(Utils.generateMovieUrl(links.getMovieId()));
         movie.setImbdUrl(Utils.generateImbdUrl(links.getImbdId()));
         movie.setTmbdUrl(Utils.generateTmbdUrl(links.getTmbdId()));

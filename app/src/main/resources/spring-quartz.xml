@@ -30,14 +30,19 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
     <bean id="indexGenJob" class="hollywood.job.IndexGenJob"/>
     <bean id="posterUrlPopulateJob" class="hollywood.job.PosterUrlPopulateJob"/>
     <bean id="descriptionPopulateJob" class="hollywood.job.DescriptionPopulateJob"/>
-    <bean id="highestRateCalculateJob" class="hollywood.job.HighestRateCalculateJob"/>
+    <bean id="ratingsCalculateJob" class="hollywood.job.RateCalculateJob"/>
     <bean id="recommendPopulateJob" class="hollywood.job.RecommendPopulateJob"/>
 
     <task:scheduled-tasks scheduler="jobScheduler">
+        <!--build index for movie every 1 minute-->
         <task:scheduled ref="indexGenJob" method="createMovieIndex" cron="0 * * * * ?"/>
+        <!--fetch poster url for movies every 5 minutes-->
         <task:scheduled ref="posterUrlPopulateJob" method="populatePosterUrl" cron="0 0/5 * * * ?"/>
+        <!--fetch brief description for movies every 5 minutes-->
         <task:scheduled ref="descriptionPopulateJob" method="populateDescription" cron="0 0/5 * * * ?"/>
-        <task:scheduled ref="highestRateCalculateJob" method="calculateHighestRateMovies" cron="0 0/2 * * * ?"/>
+        <!--calucate ratings every 2 minutes-->
+        <task:scheduled ref="ratingsCalculateJob" method="calculateRatings4Movies" cron="0 0/2 * * * ?"/>
+        <!--run recommendation engine to produce results every 10 minutes-->
         <task:scheduled ref="recommendPopulateJob" method="calculateRecommendInfo" cron="0 0/10 * * * ?"/>
     </task:scheduled-tasks>
 
