@@ -2,7 +2,7 @@ var app = angular.module("MyApp");
 app.controller("PickfavController", function ($scope, $http, $location) {
     // if favourite genres list has been selected. then go to movie hall
     // no need to choose them again
-    if (sessionStorage['favouriteGenresList'].split(",").length >= 3) {
+    if (sessionStorage['favouriteGenresList'] != null && sessionStorage['favouriteGenresList'].split(",").length >= 3) {
         $location.path("/moviehall");
         return;
     }
