@@ -25,6 +25,17 @@
             <a class="navbar-brand" href="#/moviehall">Discover Hollywood</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+            <div class="btn-group navbar-form navbar-left">
+                <button class="menu btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    menu <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#/moviehall">movie hall</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#/ratedmovies">my rates</a></li>
+                </ul>
+            </div>
             <div id="search" class="navbar-form navbar-left hidden">
                 <div class="form-group">
                     <autocomplete ng-model="keyword" data="movies" on-type="updateMovies"></autocomplete>
@@ -59,9 +70,10 @@
 <script src="js/autocomplete.js"></script>
 <script src="js/index.js"></script>
 <script src="js/userService.js"></script>
-<script src="js/login/login.js"></script>
-<script src="js/pickfav/pickfav.js"></script>
-<script src="js/moviehall/moviehall.js"></script>
-<script src="js/search/search.js"></script>
+<script src="js/loginController.js"></script>
+<script src="js/pickfavController.js"></script>
+<script src="js/moviehallController.js"></script>
+<script src="js/searchController.js"></script>
+<script src="js/ratedMovieController.js"></script>
 </body>
 </html>

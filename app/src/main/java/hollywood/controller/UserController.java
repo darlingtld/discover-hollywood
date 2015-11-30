@@ -2,6 +2,7 @@ package hollywood.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import hollywood.PropertyHolder;
+import hollywood.pojo.Movie;
 import hollywood.pojo.User;
 import hollywood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,20 +66,42 @@ public class UserController {
         }
     }
 
+    /**
+     * users pick several genres they like and add them to theri favouriteGenresList
+     * @param favMovieStub a json object. {userId:123, favGenresList:"a,b,c"}
+     * @return the updated user
+     */
     @RequestMapping(value = "favourite_genres/add", method = RequestMethod.POST, headers = "content-type=application/json")
     public
     @ResponseBody
-    User addFavouriteGenresList(@RequestBody JSONObject favMovieStub, HttpServletResponse response) {
+    User addFavouriteGenresList(@RequestBody JSONObject favMovieStub) {
         int userId = favMovieStub.getInteger("userId");
         List<String> favGenresList = (List<String>) favMovieStub.get("favGenresList");
         return userService.addFavouriteGenresList(userId, favGenresList);
     }
 
+    /**
+     * get user by userId
+     * @param userId
+     * @return
+     */
     @RequestMapping(value = "{userId}", method = RequestMethod.GET)
     public
     @ResponseBody
     User getByUserId(@PathVariable("userId") int userId) {
         return userService.getByUserId(userId);
+    }
+
+    /**
+     * get user rated movie list
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "rated_movies/{userId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getRatedMovieList(@PathVariable("userId") int userId) {
+        return userService.getRatedMovieList(userId);
     }
 
 }

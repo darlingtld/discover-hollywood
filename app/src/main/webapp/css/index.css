@@ -23,9 +23,15 @@ body {
 }
 
 #search {
-    margin-left: 100px;
+    margin-left: 10px;
+    border-radius: 6px;
 }
 
 #search input {
     width: 400px;
+}
+
+.menu{
+    background-color: blanchedalmond;
+    border: none;
 }

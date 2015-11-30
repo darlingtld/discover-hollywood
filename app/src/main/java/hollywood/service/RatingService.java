@@ -1,8 +1,11 @@
 package hollywood.service;
 
 import hollywood.dao.AvgRatingDao;
+import hollywood.dao.MovieDao;
 import hollywood.dao.RatingDao;
+import hollywood.dao.UserDao;
 import hollywood.pojo.AvgRating;
+import hollywood.pojo.Movie;
 import hollywood.pojo.Rating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +29,20 @@ public class RatingService {
     @Autowired
     private AvgRatingDao avgRatingDao;
 
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private MovieDao movieDao;
+
     @Transactional
     public void save(Rating rating) {
+//        save this rating to the whole ratings table
         ratingDao.save(rating);
+//        save this rating to user rated movie list
+        Movie movie = movieDao.getById(rating.getMovieId());
+        movie.setAvgRating(rating.getRating());
+        userDao.addRatedMovieList(rating.getUserId(), movie);
     }
 
     @Transactional

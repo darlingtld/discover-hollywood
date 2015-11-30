@@ -92,6 +92,7 @@ app.controller('IndexController', function ($scope, $location, $http, MovieRetri
     }
 });
 
+//translate numbers to stars. 2 --> ★★
 app.directive('star', function () {
     return {
         restrict: 'AE',
@@ -115,6 +116,7 @@ app.directive('star', function () {
     }
 });
 
+//router configuration
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/login', {
         controller: 'LoginController',
@@ -128,6 +130,9 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).when('/search/:keyword', {
         controller: 'SearchController',
         templateUrl: 'includes/search.html'
+    }).when('/ratedmovies', {
+        controller: 'RatedMovieController',
+        templateUrl: 'includes/ratedmovie.html'
     }).otherwise({
         redirectTo: '/login'
     });

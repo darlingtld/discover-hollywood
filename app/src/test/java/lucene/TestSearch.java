@@ -26,7 +26,7 @@ public class TestSearch {
     public void search() {
         try {
             Long startTime = System.currentTimeMillis();
-            List<Movie> result = luceneSearcher.getMovieResult("s", 6);
+            List<Movie> result = luceneSearcher.searchMoviesByTitle("s", 6);
             int i = 0;
             for (Movie bean : result) {
                 System.out.println(bean);

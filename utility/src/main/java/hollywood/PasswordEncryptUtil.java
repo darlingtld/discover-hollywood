@@ -4,7 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Created by tangl9 on 2015-10-13.
+ * Created by tangl9 on 2015-11-28.
  */
 public class PasswordEncryptUtil {
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -18,13 +18,6 @@ public class PasswordEncryptUtil {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    public static void main(String[] args) {
-        String password = "12345";
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(password);
-        System.out.println(encodedPassword);
-        System.out.println(passwordEncoder.matches(password, encodedPassword));
 
-    }
 
 }

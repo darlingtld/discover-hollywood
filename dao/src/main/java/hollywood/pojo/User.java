@@ -16,7 +16,7 @@ public class User {
     private int userId;
     private String username;
     private String password;
-    private List<Movie> favouriteMovieList;
+    private List<Movie> ratedMovieList;
     private List<String> favouriteGenresList;
     private List<Movie> recommendMovieList;
 
@@ -63,12 +63,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Movie> getFavouriteMovieList() {
-        return favouriteMovieList;
+    public List<Movie> getRatedMovieList() {
+        return ratedMovieList;
     }
 
-    public void setFavouriteMovieList(List<Movie> favouriteMovieList) {
-        this.favouriteMovieList = favouriteMovieList;
+    public void setRatedMovieList(List<Movie> ratedMovieList) {
+        this.ratedMovieList = ratedMovieList;
     }
 
     public List<String> getFavouriteGenresList() {

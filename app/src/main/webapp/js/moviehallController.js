@@ -7,6 +7,7 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
         $location.path("/login")
         return;
     }
+    //if user's recommended movie list has not been calculated by lenskit, then just get his/her genres style ones
     userService.getUser().then(function (user) {
         if (user.recommendMovieList == null) {
             $http.post("recommend/genres/6", {
@@ -20,13 +21,16 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     });
 
 
+    //top 6 highest rated movies
     $http.get("movie/rate_highest/6").success(function (data) {
         $scope.movieRateHighest = data;
     });
 
+    //top 6 most rated movies
     $http.get("movie/rate_most/6").success(function (data) {
         $scope.movieRateMost = data;
     });
+    //top 6 recently release movies
     $http.get("movie/recent/6").success(function (data) {
         $scope.movieNewbies = data;
     });
@@ -57,6 +61,7 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
             timestamp: new Date()
         }).success(function (data) {
             alert("Thanks for your rating");
+            $scope.rating = {};
             $('#rateModal .close').click();
         })
     }

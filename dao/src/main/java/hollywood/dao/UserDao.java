@@ -72,4 +72,19 @@ public class UserDao {
         update.set("recommendMovieList", movieList);
         mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
     }
+
+    public void addRatedMovieList(int userId, Movie movie) {
+        User user = getById(userId);
+        List<Movie> ratedMovieList = user.getRatedMovieList();
+        if (ratedMovieList != null) {
+            ratedMovieList.add(movie);
+        } else {
+            ratedMovieList = new ArrayList<>();
+            ratedMovieList.add(movie);
+        }
+        Query query = new Query(Criteria.where("userId").is(userId));
+        Update update = new Update();
+        update.set("ratedMovieList", ratedMovieList);
+        mongoTemplate.findAndModify(query, update, new FindAndModifyOptions().returnNew(true), User.class);
+    }
 }

@@ -1,6 +1,11 @@
 var app = angular.module("MyApp");
 app.controller("PickfavController", function ($scope, $http, $location) {
-    if(sessionStorage[''])
+    // if favourite genres list has been selected. then go to movie hall
+    // no need to choose them again
+    if (sessionStorage['favouriteGenresList'] != null) {
+        $location.path("/moviehall");
+        return;
+    }
     $http.get("movie/genres/pickfav").success(function (data, status, headers, config) {
         $scope.movieList = [];
         $scope.genres = [];

@@ -84,8 +84,22 @@ public class UserService {
         User user = userDao.getById(userId);
         List<Movie> movieList = user.getRecommendMovieList();
         if (movieList != null) {
-            movieService.fillUrls4MovieList(movieList);
+            movieService.fillUrls4MovieList(movieList,true);
         }
         return user;
+    }
+
+    /**
+     * get rated movie list by userId
+     *
+     * @param userId
+     * @return movie list
+     */
+    @Transactional
+    public List<Movie> getRatedMovieList(int userId) {
+        logger.info("get rated movie list for user {}", userId);
+        List<Movie> movieList = userDao.getById(userId).getRatedMovieList();
+        movieService.fillUrls4MovieList(movieList, false);
+        return movieList;
     }
 }
