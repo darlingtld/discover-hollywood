@@ -56,6 +56,8 @@ For frontend development, I choose AngularJS to do the most work and Bootstrap t
     start mongodb: mongod --dbpath d:\Mongodbdata
 
 4. run the db_init files to initialize the database
+
+5. user maven to build a war package and deploy
  
 
 
