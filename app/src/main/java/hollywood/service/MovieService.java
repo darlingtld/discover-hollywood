@@ -6,10 +6,8 @@ import hollywood.crawler.DescriptionCrawler;
 import hollywood.dao.AvgRatingDao;
 import hollywood.dao.LinksDao;
 import hollywood.dao.MovieDao;
-import hollywood.pojo.AvgRating;
-import hollywood.pojo.Genres;
-import hollywood.pojo.Links;
-import hollywood.pojo.Movie;
+import hollywood.dao.StatTagsDao;
+import hollywood.pojo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +40,9 @@ public class MovieService {
 
     @Autowired
     private AvgRatingDao avgRatingDao;
+
+    @Autowired
+    private StatTagsDao statTagsDao;
 
     /**
      * get movie by movie id
@@ -81,11 +82,40 @@ public class MovieService {
         try {
             List<Movie> movieList = luceneSearcher.searchMoviesByTitle(keyword, limit);
             fillUrls4MovieList(movieList, true);
+            fillTags4MovieList(movieList);
             return movieList;
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
             return new ArrayList<>();
+        }
+    }
+
+    /**
+     * fill in the tag part of movie based on tag process job
+     *
+     * @param movie
+     */
+    @Transactional
+    public void fillTags4Movie(Movie movie) {
+        StatTags statTags = statTagsDao.getStatTagsByMovieId(movie.getMovieId());
+        if (statTags == null) {
+            return;
+        }
+        String tags = statTags.getTags().replace(",,", ",");
+        tags = tags.substring(0, tags.indexOf(",", 20));
+        movie.setTags(tags);
+    }
+
+    @Transactional
+    public void fillUrls4MovieList(List<Movie> movieList, boolean isRatingNeeded) {
+        for (Movie movie : movieList) {
+            try {
+                fillUrls4Movie(movie, isRatingNeeded);
+            } catch (Exception e) {
+                logger.error(e.getMessage());
+                continue;
+            }
         }
     }
 
@@ -119,10 +149,10 @@ public class MovieService {
     }
 
     @Transactional
-    public void fillUrls4MovieList(List<Movie> movieList, boolean isRatingNeeded) {
+    public void fillTags4MovieList(List<Movie> movieList) {
         for (Movie movie : movieList) {
             try {
-                fillUrls4Movie(movie, isRatingNeeded);
+                fillTags4Movie(movie);
             } catch (Exception e) {
                 logger.error(e.getMessage());
                 continue;

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,7 +100,27 @@ public class UserService {
     public List<Movie> getRatedMovieList(int userId) {
         logger.info("get rated movie list for user {}", userId);
         List<Movie> movieList = userDao.getById(userId).getRatedMovieList();
+        if(movieList==null){
+            return new ArrayList<>();
+        }
         movieService.fillUrls4MovieList(movieList, false);
+        return movieList;
+    }
+
+    /**
+     * get tagged movie list by userId
+     *
+     * @param userId
+     * @return movie list
+     */
+    @Transactional
+    public List<Movie> getTaggedMovieList(int userId) {
+        logger.info("get tagged movie list for user {}", userId);
+        List<Movie> movieList = userDao.getById(userId).getTaggedMovieList();
+        if(movieList==null){
+            return new ArrayList<>();
+        }
+        movieService.fillUrls4MovieList(movieList, true);
         return movieList;
     }
 }

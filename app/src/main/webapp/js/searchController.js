@@ -37,6 +37,19 @@ app.controller("SearchController", function ($scope, $http, $routeParams) {
             $('#rateModal .close').click();
         })
     }
+
+    $scope.tag = function () {
+        $http.post("movie/tag", {
+            userId: sessionStorage['userId'],
+            movieId: $scope.movieIdToRate,
+            tag: $scope.movieTag,
+            timestamp: new Date()
+        }).success(function (data) {
+            alert("Thanks for your tagging");
+            $scope.movieTag = {};
+            $('#tagModal .close').click();
+        })
+    }
 });
 
 app.filter('limitSize', function () {

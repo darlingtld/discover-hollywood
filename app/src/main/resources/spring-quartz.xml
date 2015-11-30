@@ -31,6 +31,7 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
     <bean id="posterUrlPopulateJob" class="hollywood.job.PosterUrlPopulateJob"/>
     <bean id="descriptionPopulateJob" class="hollywood.job.DescriptionPopulateJob"/>
     <bean id="ratingsCalculateJob" class="hollywood.job.RateCalculateJob"/>
+    <bean id="tagProcessJob" class="hollywood.job.TagProcessJob"/>
     <bean id="recommendPopulateJob" class="hollywood.job.RecommendPopulateJob"/>
 
     <task:scheduled-tasks scheduler="jobScheduler">
@@ -44,6 +45,8 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
         <task:scheduled ref="ratingsCalculateJob" method="calculateRatings4Movies" cron="0 0/2 * * * ?"/>
         <!--run recommendation engine to produce results every 10 minutes-->
         <task:scheduled ref="recommendPopulateJob" method="calculateRecommendInfo" cron="0 0/10 * * * ?"/>
+        <!--run process tag job every 3 minutes-->
+        <task:scheduled ref="tagProcessJob" method="processTags4Movies" cron="0 0/3 * * * ?"/>
     </task:scheduled-tasks>
 
 

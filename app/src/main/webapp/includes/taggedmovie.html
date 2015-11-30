@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="row banner">
+            <h2>You have tagged these movies</h2>
+        </div>
+        <div class="row" ng-repeat="movieList in taggedMovieList">
+            <div class="col-md-2" ng-repeat="movie in movieList">
+                <div class="thumbnail">
+                    <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
+
+                    <div class="caption">
+                        <h4 ng-bind="movie.title"></h4>
+
+                        You tag:
+                        <span ng-bind="movie.tags"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

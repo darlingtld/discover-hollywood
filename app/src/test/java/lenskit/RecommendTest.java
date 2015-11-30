@@ -13,6 +13,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Created by lingda on 2015/11/28.
  */
@@ -31,8 +33,6 @@ public class RecommendTest {
     public void test() {
         User user = userService.login("lingda", "123");
         List<ScoredId> scoredIdList = movieRecommender.recommend(user, 5);
-        for (ScoredId scoredId : scoredIdList) {
-            System.out.println("@@@@ " + scoredId.getId());
-        }
+        assertTrue(!scoredIdList.isEmpty());
     }
 }

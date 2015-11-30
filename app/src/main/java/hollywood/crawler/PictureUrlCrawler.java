@@ -37,7 +37,5 @@ public class PictureUrlCrawler {
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(new PictureUrlCrawler().getMoviePosterUrl("https://www.themoviedb.org/movie/10997"));
-    }
+
 }

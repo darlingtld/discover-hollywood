@@ -133,6 +133,9 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).when('/ratedmovies', {
         controller: 'RatedMovieController',
         templateUrl: 'includes/ratedmovie.html'
+    }).when('/taggedmovies', {
+        controller: 'TaggedMovieController',
+        templateUrl: 'includes/taggedmovie.html'
     }).otherwise({
         redirectTo: '/login'
     });

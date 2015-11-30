@@ -3,8 +3,12 @@ package hollywood.controller;
 import com.alibaba.fastjson.JSONObject;
 import hollywood.pojo.Movie;
 import hollywood.pojo.Rating;
+import hollywood.pojo.StatTags;
+import hollywood.pojo.Tag;
 import hollywood.service.MovieService;
 import hollywood.service.RatingService;
+import hollywood.service.StatTagsService;
+import hollywood.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -27,6 +31,9 @@ public class MovieController {
 
     @Autowired
     private RatingService ratingService;
+
+    @Autowired
+    private StatTagsService statTagsService;
 
     /**
      * searchMoviesByTitle movies by keyword
@@ -154,6 +161,17 @@ public class MovieController {
     @ResponseBody
     void rateMovie(@RequestBody Rating rating) {
         ratingService.save(rating);
+    }
+
+    /**
+     * user gives a tag for some movie
+     * @param tag pojo Tag.java
+     */
+    @RequestMapping(value = "tag", method = RequestMethod.POST, headers = "content-type=application/json")
+    public
+    @ResponseBody
+    void rateMovie(@RequestBody Tag tag) {
+        statTagsService.save(tag);
     }
 
 

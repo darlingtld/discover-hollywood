@@ -26,14 +26,11 @@ public class SearchTest {
     public void search() {
         try {
             Long startTime = System.currentTimeMillis();
-            List<Movie> result = luceneSearcher.searchMoviesByTitle("s", 6);
-            for (Movie bean : result) {
-                System.out.println(bean);
-            }
-            System.out.println("searchBean.result.size : " + result.size());
-
+            List<Movie> result = luceneSearcher.searchMoviesByTitle("solo", 6);
+            result.forEach(System.out::println);
+            System.out.println("search result size : " + result.size());
             Long endTime = System.currentTimeMillis();
-            System.out.println("tiem spent：" + (endTime - startTime) / 1000);
+            System.out.println("time spent：" + (endTime - startTime) + " ms");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

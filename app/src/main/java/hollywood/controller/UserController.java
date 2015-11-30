@@ -104,4 +104,16 @@ public class UserController {
         return userService.getRatedMovieList(userId);
     }
 
+    /**
+     * get user tagged movie list
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "tagged_movies/{userId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getTaggedMovieList(@PathVariable("userId") int userId) {
+        return userService.getTaggedMovieList(userId);
+    }
+
 }

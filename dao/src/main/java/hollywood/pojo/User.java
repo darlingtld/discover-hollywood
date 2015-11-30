@@ -19,6 +19,17 @@ public class User {
     private List<Movie> ratedMovieList;
     private List<String> favouriteGenresList;
     private List<Movie> recommendMovieList;
+    private List<Movie> taggedMovieList;
+    private List<Integer> friendIdList;
+    private Date lastLoginTime;
+
+    public List<Movie> getTaggedMovieList() {
+        return taggedMovieList;
+    }
+
+    public void setTaggedMovieList(List<Movie> taggedMovieList) {
+        this.taggedMovieList = taggedMovieList;
+    }
 
     public List<Movie> getRecommendMovieList() {
         return recommendMovieList;
@@ -27,9 +38,6 @@ public class User {
     public void setRecommendMovieList(List<Movie> recommendMovieList) {
         this.recommendMovieList = recommendMovieList;
     }
-
-    private List<Integer> friendIdList;
-    private Date lastLoginTime;
 
     public String getId() {
         return id;
