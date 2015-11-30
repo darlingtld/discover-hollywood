@@ -6,7 +6,7 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     if (sessionStorage["userId"] == null) {
         $location.path("/login")
         return;
-    } else if(sessionStorage["favouriteGenresList"] == null){
+    } else if (sessionStorage["favouriteGenresList"].split(",").length < 3) {
         $location.path("/pickfav")
         return;
     }
