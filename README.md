@@ -28,9 +28,10 @@ The volume of ratings dataset is huge.  Users need to see the highest rated movi
 
 ## Tags
 Users can view the tags of the movies when he or she is searching.  So I created a quartz job to combine all these tags.  Then the tag information is stored and it is an one to one mapping to the movieId.  The combined tags can quickly be fetched through this approach.
+During the first phase of the start of system, some tags might be missing.  But the daemon job shall populate them as time goes by.
 
 ## Crawler
-It might be a little sterile just to look at the movie titles or tags.  So I figured it might be interesting to get the poster and the brief description of the movie.  So there are two crawlers working in the backend to fetch image urls and description information of the movies.
+It might be a little sterile just to look at the movie titles or tags.  So I figured it might be interesting to get the poster and the brief description of the movie.  So there are two crawlers working in the backend to fetch image urls and description information of the movies.  During the first phase of the start of system, some poster urls or description might be missing.  But the daemon job shall populate them as time goes by.
 
 # Frontend
 For frontend development, I choose AngularJS to do the most work and Bootstrap to decorate the pages.  AngularJS is the MV* framework and it provides two-way binding between the View and the Model, reducing a lot of work.  Bootstrap is a good css library.  It minimize the effor the develop cross browsers and cross platform web pages.  Discover-hollywood is a single page application.  Page hopping just happens within some areas of the whole html.  There is no need to render the whole page and load resource again if there is just a small part of the page being changed.  Bower is used to manage all the libraries I need to use during the development.
