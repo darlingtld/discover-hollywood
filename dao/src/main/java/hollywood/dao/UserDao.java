@@ -4,13 +4,16 @@ import hollywood.PropertyHolder;
 import hollywood.pojo.Movie;
 import hollywood.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,10 +26,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class UserDao {
     //    just mock some data
-    private static final AtomicInteger userIdGenerator = new AtomicInteger(PropertyHolder.MOCK_INITIAL_USERID);
+    private static AtomicInteger userIdGenerator = new AtomicInteger(PropertyHolder.MOCK_INITIAL_USERID);
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @PostConstruct
+    private void init() {
+        Query query = new BasicQuery("{}").with(new Sort(new Sort.Order(Sort.Direction.DESC, "userId"))).limit(1);
+        User user = mongoTemplate.findOne(query, User.class);
+        if (user != null) {
+            userIdGenerator = new AtomicInteger(user.getUserId() + 1);
+        }
+    }
 
     public User getById(int id) {
         Query query = new Query(Criteria.where("userId").is(id));

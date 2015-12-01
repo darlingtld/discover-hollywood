@@ -31,4 +31,9 @@ public class RatingDao {
     public Rating getRatingByMovieIdAndUserId(int movieId, int userId) {
         return (Rating) sessionFactory.getCurrentSession().createQuery(String.format("from Rating where movieId=%d and userId=%d", movieId, userId)).uniqueResult();
     }
+
+    public List<Object[]> getRatingTrendByMovieId(int movieId) {
+        List<Object[]> resultList = sessionFactory.getCurrentSession().createSQLQuery(String.format("SELECT avg(rating), year(timestamp) y FROM ratings where movieId=%d GROUP BY year(timestamp) order by y", movieId)).list();
+        return resultList;
+    }
 }

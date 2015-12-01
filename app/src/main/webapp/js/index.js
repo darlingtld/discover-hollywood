@@ -1,4 +1,4 @@
-var app = angular.module("MyApp", ['ngRoute', 'autocomplete']);
+var app = angular.module("MyApp", ['ngRoute', 'autocomplete', 'chart.js']);
 app.factory('MovieRetriever', function ($http, $q) {
     var MovieRetriever = {};
 

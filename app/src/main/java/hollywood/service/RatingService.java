@@ -1,5 +1,7 @@
 package hollywood.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import hollywood.dao.AvgRatingDao;
 import hollywood.dao.MovieDao;
 import hollywood.dao.RatingDao;
@@ -53,6 +55,7 @@ public class RatingService {
     /**
      * main function to calculate ratings.  generate average ratings, total ratings and rating counts
      * it shall combine with the previous result to make sure its accuracy
+     *
      * @param lastId
      * @return
      */
@@ -96,8 +99,23 @@ public class RatingService {
         return ratingList.get(ratingList.size() - 1).getId();
     }
 
+    @Transactional
     public Rating getRatingByMovieIdAndUserId(int movieId, int userId) {
         logger.info("get rating by movie id {} and user id {}", movieId, userId);
         return ratingDao.getRatingByMovieIdAndUserId(movieId, userId);
+    }
+
+    @Transactional
+    public JSONArray getRatingTrendByMovieId(int movieId) {
+        logger.info("get rating trend of movie id {}", movieId);
+        List<Object[]> resultList = ratingDao.getRatingTrendByMovieId(movieId);
+        JSONArray dataset = new JSONArray();
+        for (Object[] object : resultList) {
+            JSONObject data = new JSONObject();
+            data.put("rating", object[0]);
+            data.put("year", object[1]);
+            dataset.add(data);
+        }
+        return dataset;
     }
 }

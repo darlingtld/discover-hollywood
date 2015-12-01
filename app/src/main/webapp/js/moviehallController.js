@@ -21,6 +21,7 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
         } else {
             $scope.movieRecommendMovieList = user.recommendMovieList.slice(0, 6);
         }
+
     });
 
 
@@ -68,4 +69,20 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
             $('#rateModal .close').click();
         })
     }
+
+    $scope.showMovieTrend = function (movieId) {
+        $http.get('movie/rate_trend/' + movieId).success(function (data) {
+            var labels = [];
+            var datas = [];
+            for (var i = 0; i < data.length; i++) {
+                labels.push(data[i].year);
+                datas.push(data[i].rating.toFixed(3));
+            }
+            $scope.labels = labels;
+            $scope.series = ['Ratings'];
+            $scope.data = [datas];
+        });
+    }
+
+
 });

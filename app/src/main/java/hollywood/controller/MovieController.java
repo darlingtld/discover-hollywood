@@ -1,5 +1,6 @@
 package hollywood.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import hollywood.pojo.Movie;
 import hollywood.pojo.Rating;
@@ -184,5 +185,16 @@ public class MovieController {
         statTagsService.save(tag);
     }
 
+    /**
+     * get the rating trend by movieId.  categorized by year
+     * @param movieId
+     * @return
+     */
+    @RequestMapping(value = "rate_trend/{movieId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getRatingTrend(@PathVariable("movieId") int movieId) {
+        return ratingService.getRatingTrendByMovieId(movieId);
+    }
 
 }

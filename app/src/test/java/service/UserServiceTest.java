@@ -1,5 +1,6 @@
 package service;
 
+import hollywood.PropertyHolder;
 import hollywood.pojo.Genres;
 import hollywood.pojo.Movie;
 import hollywood.pojo.User;
@@ -9,12 +10,17 @@ import hollywood.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -35,6 +41,9 @@ public class UserServiceTest {
 
     @Autowired
     private RatingService ratingService;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Test
     public void login() {
@@ -78,6 +87,17 @@ public class UserServiceTest {
         for (Movie movie : movieList) {
             assertEquals(movie.getAvgRating(), ratingService.getRatingByMovieIdAndUserId(movie.getMovieId(), userId).getRating());
         }
+    }
+
+    @Test
+    public void getMaxUserId() {
+        Query query = new BasicQuery("{}").with(new Sort(new Sort.Order(Sort.Direction.DESC, "userId"))).limit(1);
+        User user = mongoTemplate.findOne(query, User.class);
+        AtomicInteger userIdGenerator = new AtomicInteger(PropertyHolder.MOCK_INITIAL_USERID);
+        if (user != null) {
+            userIdGenerator = new AtomicInteger(user.getUserId() + 1);
+        }
+        System.out.println(userIdGenerator.get());
     }
 
 }

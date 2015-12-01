@@ -12,13 +12,16 @@
                     <div class="caption">
                         <h4 class="movie-title" ng-bind="movie.title"></h4>
 
-                        Rating:
+                        <a data-toggle="modal"
+                           data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
+                           title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
                         <p>
                             <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
                                     data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
                             </button>
                         </p>
+
                     </div>
                 </div>
             </div>
@@ -37,7 +40,9 @@
                     <div class="caption">
                         <h4 class="movie-title" ng-bind="movie.title"></h4>
 
-                        Rating:
+                        <a data-toggle="modal"
+                           data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
+                           title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
 
                         <p>
@@ -64,7 +69,9 @@
                     <div class="caption">
                         <h4 class="movie-title" ng-bind="movie.title"></h4>
 
-                        Rating:
+                        <a data-toggle="modal"
+                           data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
+                           title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
 
                         <p>
@@ -91,7 +98,9 @@
                     <div class="caption">
                         <h4 class="movie-title" ng-bind="movie.title"></h4>
 
-                        Rating:
+                        <a data-toggle="modal"
+                           data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
+                           title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
 
                         <p>
@@ -128,6 +137,32 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" ng-click="rate()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="rateTrendModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    Rating trend
+                </h4>
+            </div>
+            <div class="modal-body">
+                <canvas id="line" class="chart chart-line" chart-data="data"
+                        chart-labels="labels" chart-legend="true" chart-series="series"
+                        chart-click="onClick">
+                </canvas>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
