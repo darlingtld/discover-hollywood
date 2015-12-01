@@ -126,7 +126,12 @@ public class MovieService {
             return;
         }
         String tags = statTags.getTags().replace(",,", ",");
-        tags = tags.substring(0, tags.indexOf(",", 20));
+        int fromIndex = Math.min(tags.length(), 80) - 1;
+        if (tags.startsWith(",")) {
+            tags = tags.substring(1, tags.indexOf(",", fromIndex));
+        } else {
+            tags = tags.substring(0, tags.indexOf(",", fromIndex));
+        }
         movie.setTags(tags);
     }
 

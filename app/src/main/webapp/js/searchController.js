@@ -54,7 +54,7 @@ app.controller("SearchController", function ($scope, $http, $routeParams) {
 
 app.filter('limitSize', function () {
     return function (text) {
-        var limit = 250;
+        var limit = 200;
         if (text == null) {
             return;
         }
