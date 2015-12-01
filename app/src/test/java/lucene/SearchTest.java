@@ -1,7 +1,9 @@
 package lucene;
 
+import hollywood.IndexGenerator;
 import hollywood.LuceneSearcher;
 import hollywood.pojo.Movie;
+import hollywood.service.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,40 @@ public class SearchTest {
     @Autowired
     private LuceneSearcher luceneSearcher;
 
+    @Autowired
+    private IndexGenerator indexGenerator;
+
+
     @Test
-    public void search() {
+    public void buildMoveIndex() {
+        indexGenerator.createMovieIndex(0);
+    }
+
+    @Test
+    public void buildTagIndex() {
+        indexGenerator.createTagIndex(0);
+    }
+
+    @Test
+    public void searchMovie() {
         try {
             Long startTime = System.currentTimeMillis();
             List<Movie> result = luceneSearcher.searchMoviesByTitle("solo", 6);
+            result.forEach(System.out::println);
+            System.out.println("search result size : " + result.size());
+            Long endTime = System.currentTimeMillis();
+            System.out.println("time spent：" + (endTime - startTime) + " ms");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void searchTag() {
+        try {
+            Long startTime = System.currentTimeMillis();
+            List<Movie> result = luceneSearcher.searchMoviesByTag("love", 6);
             result.forEach(System.out::println);
             System.out.println("search result size : " + result.size());
             Long endTime = System.currentTimeMillis();

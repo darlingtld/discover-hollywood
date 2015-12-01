@@ -32,4 +32,9 @@ public class TagDao {
         return (Tag) sessionFactory.getCurrentSession().createQuery(String.format("from Tag where movieId=%d and userId=%d", movieId, userId)).uniqueResult();
 
     }
+
+    public List<Tag> getByPagination(int start, int count) {
+        return sessionFactory.getCurrentSession().createQuery(String.format("from Tag")).setFirstResult(start).setMaxResults(count).list();
+
+    }
 }

@@ -93,7 +93,7 @@ app.directive('autocomplete', function () {
             var attr = '';
 
             scope.attrs = {
-                "placeholder": "search movie...",
+                "placeholder": "search movies by titles and tags...",
                 "class": "",
                 "id": "",
                 "inputclass": "",

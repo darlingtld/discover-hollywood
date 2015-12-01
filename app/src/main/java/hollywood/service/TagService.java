@@ -22,4 +22,9 @@ public class TagService {
         logger.info("save tag {}", tag);
         tagDao.save(tag);
     }
+
+    @Transactional
+    public int getMaxTagId() {
+        return tagDao.getMaxId();
+    }
 }

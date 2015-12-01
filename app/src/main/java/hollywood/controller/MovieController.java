@@ -3,18 +3,15 @@ package hollywood.controller;
 import com.alibaba.fastjson.JSONObject;
 import hollywood.pojo.Movie;
 import hollywood.pojo.Rating;
-import hollywood.pojo.StatTags;
 import hollywood.pojo.Tag;
 import hollywood.service.MovieService;
 import hollywood.service.RatingService;
 import hollywood.service.StatTagsService;
-import hollywood.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -36,7 +33,7 @@ public class MovieController {
     private StatTagsService statTagsService;
 
     /**
-     * searchMoviesByTitle movies by keyword
+     * users can search movies by titles and tags
      *
      * @param searchStub {keyword:keyword}
      * @return movieList
@@ -46,7 +43,9 @@ public class MovieController {
     @ResponseBody
     List<Movie> searchMovie(@RequestBody JSONObject searchStub) {
         String keyword = searchStub.getString("keyword");
-        return movieService.searchMoviesByTitle(keyword, 20);
+        List<Movie> movieList = movieService.searchMoviesByTitle(keyword, 20);
+        movieList.addAll(movieService.searchMoviesByTag(keyword, 20));
+        return movieList;
     }
 
     /**
@@ -103,8 +102,9 @@ public class MovieController {
 
     /**
      * get the movie description of the given movieId
+     *
      * @param movieId
-     * @return  a json object. something like this {movieId:11,description:hello}
+     * @return a json object. something like this {movieId:11,description:hello}
      */
     @RequestMapping(value = "description/{movieId}", method = RequestMethod.GET)
     public
@@ -118,6 +118,7 @@ public class MovieController {
 
     /**
      * get highest rated movie list
+     *
      * @param limit
      * @return a list of movies
      */
@@ -130,6 +131,7 @@ public class MovieController {
 
     /**
      * get most rated movies
+     *
      * @param limit
      * @return a list of movies
      */
@@ -142,6 +144,7 @@ public class MovieController {
 
     /**
      * get recently released movies
+     *
      * @param limit
      * @return
      */
@@ -154,6 +157,7 @@ public class MovieController {
 
     /**
      * user gives a rating for some movie
+     *
      * @param rating pojo Rating.java
      */
     @RequestMapping(value = "rate", method = RequestMethod.POST, headers = "content-type=application/json")
@@ -165,6 +169,7 @@ public class MovieController {
 
     /**
      * user gives a tag for some movie
+     *
      * @param tag pojo Tag.java
      */
     @RequestMapping(value = "tag", method = RequestMethod.POST, headers = "content-type=application/json")

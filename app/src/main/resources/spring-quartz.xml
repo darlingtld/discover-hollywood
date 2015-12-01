@@ -35,13 +35,15 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
     <bean id="recommendPopulateJob" class="hollywood.job.RecommendPopulateJob"/>
 
     <task:scheduled-tasks scheduler="jobScheduler">
-        <!--build index for movie every 1 minute-->
-        <task:scheduled ref="indexGenJob" method="createMovieIndex" cron="0 * * * * ?"/>
+        <!--build index for movie every 5 minute-->
+        <task:scheduled ref="indexGenJob" method="createMovieIndex" cron="0 0/5 * * * ?"/>
+        <!--build index for movie every 5 minute-->
+        <task:scheduled ref="indexGenJob" method="createTagIndex" cron="0 0/5 * * * ?"/>
         <!--fetch poster url for movies every 5 minutes-->
         <task:scheduled ref="posterUrlPopulateJob" method="populatePosterUrl" cron="0 0/5 * * * ?"/>
         <!--fetch brief description for movies every 5 minutes-->
         <task:scheduled ref="descriptionPopulateJob" method="populateDescription" cron="0 0/5 * * * ?"/>
-        <!--calucate ratings every 2 minutes-->
+        <!--calculate ratings every 2 minutes-->
         <task:scheduled ref="ratingsCalculateJob" method="calculateRatings4Movies" cron="0 0/2 * * * ?"/>
         <!--run recommendation engine to produce results every 10 minutes-->
         <task:scheduled ref="recommendPopulateJob" method="calculateRecommendInfo" cron="0 0/10 * * * ?"/>

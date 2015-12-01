@@ -99,4 +99,16 @@ public class LuceneSearcher {
     }
 
 
+    /**
+     * search movie by movie tags
+     *
+     * @param tag
+     * @param count
+     * @return
+     */
+    public List<Movie> searchMoviesByTag(String tag, int count) throws Exception {
+        TopDocs topDocs = search("tag", tag);
+        ScoreDoc[] scoreDocs = topDocs.scoreDocs;
+        return addHits2List(scoreDocs, count);
+    }
 }

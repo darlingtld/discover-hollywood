@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by lingda on 2015/11/27.
@@ -82,6 +83,28 @@ public class MovieService {
         try {
             List<Movie> movieList = luceneSearcher.searchMoviesByTitle(keyword, limit);
             fillUrls4MovieList(movieList, true);
+            fillTags4MovieList(movieList);
+            return movieList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * searchMoviesByTag by movie tags
+     *
+     * @param keyword
+     * @param limit
+     * @return a list of movies
+     */
+    @Transactional
+    public List<Movie> searchMoviesByTag(String keyword, int limit) {
+        logger.info("searchMoviesByTag by keyword {}", keyword);
+        try {
+            List<Movie> movieIdList = luceneSearcher.searchMoviesByTag(keyword, limit);
+            List<Movie> movieList = movieIdList.stream().map(movie -> getById(movie.getMovieId())).collect(Collectors.toList());
             fillTags4MovieList(movieList);
             return movieList;
         } catch (Exception e) {

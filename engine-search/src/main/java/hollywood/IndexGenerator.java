@@ -1,7 +1,9 @@
 package hollywood;
 
 import hollywood.dao.MovieDao;
+import hollywood.dao.TagDao;
 import hollywood.pojo.Movie;
+import hollywood.pojo.Tag;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -34,6 +36,9 @@ public class IndexGenerator {
 
     @Autowired
     private MovieDao movieDao;
+
+    @Autowired
+    private TagDao tagDao;
 
     @Transactional
     public int createMovieIndex(int lastId) {
@@ -70,6 +75,46 @@ public class IndexGenerator {
             } while (movieList.size() == maxBufferedDocs);
             indexWriter.close();
             return movieList.get(movieList.size() - 1).getMovieId();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+//            will return lastId.  The next trigger of this job shall retry the above process
+        }
+        return lastId;
+    }
+
+    @Transactional
+    public int createTagIndex(int lastId) {
+        Directory directory;
+        IndexWriter indexWriter;
+        try {
+            File indexFile = new File(searchDir);
+            if (!indexFile.exists()) {
+                indexFile.mkdir();
+            }
+            directory = FSDirectory.open(Paths.get(searchDir));
+            Analyzer analyzer = new StandardAnalyzer();
+            IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
+            iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
+            indexWriter = new IndexWriter(directory, iwc);
+            Document doc;
+            int start = lastId;
+            List<Tag> tagList;
+            do {
+                tagList = tagDao.getByPagination(start, maxBufferedDocs);
+                for (Tag tag : tagList) {
+                    doc = new Document();
+//                    build index on two fields (movieId, tag)
+                    Field movieId = new Field("movieId", String.valueOf(tag.getMovieId()), Field.Store.YES, Field.Index.NOT_ANALYZED, Field.TermVector.NO);
+                    Field movieTag = new Field("tag", tag.getTag(), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.NO);
+                    doc.add(movieId);
+                    doc.add(movieTag);
+                    indexWriter.addDocument(doc);
+                }
+                start += maxBufferedDocs;
+
+            } while (tagList.size() == maxBufferedDocs);
+            indexWriter.close();
+            return tagList.get(tagList.size() - 1).getId();
         } catch (Exception e) {
             logger.error(e.getMessage());
 //            will return lastId.  The next trigger of this job shall retry the above process
