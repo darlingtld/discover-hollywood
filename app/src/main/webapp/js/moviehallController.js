@@ -6,7 +6,7 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     if (sessionStorage["userId"] == null) {
         $location.path("/login")
         return;
-    } else if (sessionStorage["favouriteGenresList"].split(",").length < 3) {
+    } else if (sessionStorage["favouriteGenresList"] == null || sessionStorage["favouriteGenresList"].split(",").length < 3) {
         $location.path("/pickfav")
         return;
     }
@@ -37,6 +37,11 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     //top 6 recently release movies
     $http.get("movie/recent/6").success(function (data) {
         $scope.movieNewbies = data;
+    });
+
+    //top 6 most tagged movies
+    $http.get("movie/tag_most/6").success(function (data) {
+        $scope.movieTagMost = data;
     });
 
     $scope.rateMap = [

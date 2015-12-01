@@ -50,6 +50,20 @@ app.controller("SearchController", function ($scope, $http, $routeParams) {
             $('#tagModal .close').click();
         })
     }
+
+    $scope.showMovieTrend = function (movieId) {
+        $http.get('movie/rate_trend/' + movieId).success(function (data) {
+            var labels = [];
+            var datas = [];
+            for (var i = 0; i < data.length; i++) {
+                labels.push(data[i].year);
+                datas.push(data[i].rating.toFixed(3));
+            }
+            $scope.labels = labels;
+            $scope.series = ['Ratings'];
+            $scope.data = [datas];
+        });
+    }
 });
 
 app.filter('limitSize', function () {

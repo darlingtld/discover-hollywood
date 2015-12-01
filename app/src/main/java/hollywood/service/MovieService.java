@@ -273,4 +273,16 @@ public class MovieService {
         fillUrls4MovieList(movieList, true);
         return movieList;
     }
+
+    @Transactional
+    public List<Movie> getMostTaggedMovies(int limit) {
+        List<StatTags> statTagsList = statTagsDao.getMostTaggedMovies(limit);
+        List<Movie> movieList = new ArrayList<>();
+        for (StatTags statTags : statTagsList) {
+            Movie movie = getById(statTags.getMovieId());
+            movieList.add(movie);
+        }
+        fillUrls4MovieList(movieList, true);
+        return movieList;
+    }
 }

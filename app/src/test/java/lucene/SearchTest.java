@@ -29,7 +29,7 @@ public class SearchTest {
 
 
     @Test
-    public void buildMoveIndex() {
+    public void buildMovieIndex() {
         indexGenerator.createMovieIndex(0);
     }
 

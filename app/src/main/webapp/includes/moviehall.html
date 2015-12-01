@@ -10,7 +10,7 @@
                     <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
 
                     <div class="caption">
-                        <h4 class="movie-title" ng-bind="movie.title"></h4>
+                        <h4 class="movie-title" ng-bind="movie.title | limitTo:40"></h4>
 
                         <a data-toggle="modal"
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
@@ -38,7 +38,7 @@
                     <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
 
                     <div class="caption">
-                        <h4 class="movie-title" ng-bind="movie.title"></h4>
+                        <h4 class="movie-title" ng-bind="movie.title | limitTo:40"></h4>
 
                         <a data-toggle="modal"
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
@@ -67,7 +67,7 @@
                     <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
 
                     <div class="caption">
-                        <h4 class="movie-title" ng-bind="movie.title"></h4>
+                        <h4 class="movie-title" ng-bind="movie.title | limitTo:40"></h4>
 
                         <a data-toggle="modal"
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
@@ -96,7 +96,36 @@
                     <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
 
                     <div class="caption">
-                        <h4 class="movie-title" ng-bind="movie.title"></h4>
+                        <h4 class="movie-title" ng-bind="movie.title | limitTo:40"></h4>
+
+                        <a data-toggle="modal"
+                           data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
+                           title="click to see rating trend">Rating:</a>
+                        <star star-count="{{movie.avgRating}}"></star>
+
+                        <p>
+                            <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
+                                    data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row banner">
+            <h2>The most tagged movies</h2>
+            <span class="banner-description">Many fans have tagged these movies</span>
+        </div>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="movie in movieTagMost">
+                <div class="thumbnail hall-thumb">
+                    <a href="{{movie.tmbdUrl}}" target="_blank"><img class="hall-img" ng-src="{{movie.posterUrl}}"></a>
+
+                    <div class="caption">
+                        <h4 class="movie-title" ng-bind="movie.title | limitTo:40"></h4>
 
                         <a data-toggle="modal"
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"

@@ -149,6 +149,19 @@ public class MovieController {
     }
 
     /**
+     * get most tagged movies
+     *
+     * @param limit
+     * @return a list of movies
+     */
+    @RequestMapping(value = "tag_most/{limit}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    List<Movie> getMostTaggedMovies(@PathVariable("limit") int limit) {
+        return movieService.getMostTaggedMovies(limit);
+    }
+
+    /**
      * get recently released movies
      *
      * @param limit

@@ -1,7 +1,9 @@
 package hollywood.dao;
 
 import hollywood.pojo.StatTags;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +31,9 @@ public class StatTagsDao {
     }
 
     public List<StatTags> getMostTaggedMovies(int limit) {
-        return sessionFactory.getCurrentSession().createQuery(String.format("from StatTags order by count desc")).setMaxResults(limit).list();
+        Criteria c = sessionFactory.getCurrentSession().createCriteria(StatTags.class);
+        c.addOrder(Order.desc("count"));
+        c.setMaxResults(limit);
+        return c.list();
     }
 }
