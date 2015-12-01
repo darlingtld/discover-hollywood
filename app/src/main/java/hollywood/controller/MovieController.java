@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -45,7 +43,14 @@ public class MovieController {
         String keyword = searchStub.getString("keyword");
         List<Movie> movieList = movieService.searchMoviesByTitle(keyword, 20);
         movieList.addAll(movieService.searchMoviesByTag(keyword, 20));
-        return movieList;
+//        deduplication here
+        List<Movie> dedupeMovieList = new ArrayList<>();
+        HashSet<Integer> movieIdSet = new HashSet<>();
+        movieList.stream().filter(movie -> !movieIdSet.contains(movie.getMovieId())).forEach(movie -> {
+            dedupeMovieList.add(movie);
+            movieIdSet.add(movie.getMovieId());
+        });
+        return dedupeMovieList;
     }
 
     /**
