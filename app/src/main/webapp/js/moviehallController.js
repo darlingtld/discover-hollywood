@@ -90,4 +90,17 @@ app.controller("MoviehallController", function ($scope, $http, $location, userSe
     }
 
 
+    $scope.showPopover = function (movieId) {
+        $http.get('movie/tags/' + movieId).success(function (data) {
+            $scope.words = data;
+        })
+        $scope.popoverIsVisible = true;
+        $('div.pop').css('top', (event.pageY - 100) + 'px');
+        $('div.pop').css('left', event.pageX + 'px');
+    };
+
+    $scope.hidePopover = function () {
+        $scope.popoverIsVisible = false;
+    };
+
 });

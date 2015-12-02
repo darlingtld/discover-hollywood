@@ -210,4 +210,16 @@ public class MovieController {
         return ratingService.getRatingTrendByMovieId(movieId);
     }
 
+    /**
+     * get movie tags
+     * @param movieId
+     * @return
+     */
+    @RequestMapping(value = "tags/{movieId}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getMovieTags(@PathVariable("movieId") int movieId) {
+        return statTagsService.getMovieTags(movieId);
+    }
+
 }

@@ -251,6 +251,7 @@ public class MovieService {
             movieList.add(movie);
         }
         fillUrls4MovieList(movieList, true);
+        fillTags4MovieList(movieList);
         return movieList;
     }
 
@@ -264,6 +265,7 @@ public class MovieService {
             movieList.add(movie);
         }
         fillUrls4MovieList(movieList, true);
+        fillTags4MovieList(movieList);
         return movieList;
     }
 
@@ -271,6 +273,7 @@ public class MovieService {
     public List<Movie> getRecentlyReleasedMovies(int limit) {
         List<Movie> movieList = movieDao.getRecentlyReleasedMovies(limit);
         fillUrls4MovieList(movieList, true);
+        fillTags4MovieList(movieList);
         return movieList;
     }
 
@@ -283,6 +286,7 @@ public class MovieService {
             movieList.add(movie);
         }
         fillUrls4MovieList(movieList, true);
+        fillTags4MovieList(movieList);
         return movieList;
     }
 }

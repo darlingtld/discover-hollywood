@@ -1,5 +1,7 @@
 package hollywood.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Sets;
 import hollywood.dao.MovieDao;
 import hollywood.dao.StatTagsDao;
@@ -108,5 +110,27 @@ public class StatTagsService {
     public Tag getTagByMovieIdAndUserId(int movieId, int userId) {
         logger.info("get tag by movie id {} and user id {}", movieId, userId);
         return tagDao.getTagsByMovieIdAndUserId(movieId, userId);
+    }
+
+    @Transactional
+    public JSONArray getMovieTags(int movieId) {
+        logger.info("get movie tags");
+        StatTags statTags = statTagsDao.getStatTagsByMovieId(movieId);
+        JSONArray tagCloud = new JSONArray();
+        if (statTags == null) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("text", "no tags");
+            jsonObject.put("weight", 1);
+            tagCloud.add(jsonObject);
+            return tagCloud;
+        }
+        String[] tags = statTags.getTags().split(",");
+        for (int i = 0; i < tags.length; i++) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("text", tags[i]);
+            jsonObject.put("weight", tags.length - i);
+            tagCloud.add(jsonObject);
+        }
+        return tagCloud;
     }
 }

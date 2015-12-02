@@ -12,9 +12,21 @@
 }
 
 .movie-title {
-    height: 80px;
+    height: 60px;
 }
 
 div.hall-thumb {
     height: 440px;
+}
+
+div.pop {
+    background-color: white;
+    position: absolute !important;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;;
+}
+
+.show-pop {
+    display: block;
 }

@@ -16,6 +16,10 @@
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
                            title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
+                        <a class="show-pop" ng-mouseover="showPopover(movie.movieId)" ng-mouseleave="hidePopover()">
+                            Show Tags
+                        </a>
+
                         <p>
                             <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
                                     data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
@@ -44,7 +48,9 @@
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
                            title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
-
+                        <a class="show-pop" ng-mouseover="showPopover(movie.movieId)" ng-mouseleave="hidePopover()">
+                            Show Tags
+                        </a>
                         <p>
                             <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
                                     data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
@@ -73,7 +79,9 @@
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
                            title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
-
+                        <a class="show-pop" ng-mouseover="showPopover(movie.movieId)" ng-mouseleave="hidePopover()">
+                            Show Tags
+                        </a>
                         <p>
                             <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
                                     data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
@@ -102,7 +110,9 @@
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
                            title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
-
+                        <a class="show-pop" ng-mouseover="showPopover(movie.movieId)" ng-mouseleave="hidePopover()">
+                            Show Tags
+                        </a>
                         <p>
                             <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
                                     data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
@@ -131,7 +141,9 @@
                            data-target="#rateTrendModal" ng-click="showMovieTrend(movie.movieId)"
                            title="click to see rating trend">Rating:</a>
                         <star star-count="{{movie.avgRating}}"></star>
-
+                        <a class="show-pop" ng-mouseover="showPopover(movie.movieId)" ng-mouseleave="hidePopover()">
+                            Show Tags
+                        </a>
                         <p>
                             <button class="rate-btn btn btn-success btn-block" data-toggle="modal"
                                     data-target="#rateModal" ng-click="setMovie(movie.movieId)">Let me rate
@@ -143,6 +155,8 @@
         </div>
     </div>
 </div>
+
+<jqcloud class="pop" words="words" width="150" height="150" steps="7" ng-show="popoverIsVisible"></jqcloud>
 
 <div class="modal fade" id="rateModal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -195,3 +209,4 @@
         </div>
     </div>
 </div>
+
