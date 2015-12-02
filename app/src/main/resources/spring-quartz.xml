@@ -40,15 +40,15 @@ Pay attention to the effects of '?' and '*' in the day-of-week and day-of-month 
         <!--build index for movie every 5 minute-->
         <task:scheduled ref="indexGenJob" method="createTagIndex" cron="0 0/5 * * * ?"/>
         <!--fetch poster url for movies every 5 minutes-->
-        <task:scheduled ref="posterUrlPopulateJob" method="populatePosterUrl" cron="0 0/5 * * * ?"/>
+        <task:scheduled ref="posterUrlPopulateJob" method="populatePosterUrl" cron="0 0/7 * * * ?"/>
         <!--fetch brief description for movies every 5 minutes-->
-        <task:scheduled ref="descriptionPopulateJob" method="populateDescription" cron="0 0/5 * * * ?"/>
+        <task:scheduled ref="descriptionPopulateJob" method="populateDescription" cron="0 0/7 * * * ?"/>
         <!--calculate ratings every 2 minutes-->
-        <task:scheduled ref="ratingsCalculateJob" method="calculateRatings4Movies" cron="0 0/2 * * * ?"/>
+        <task:scheduled ref="ratingsCalculateJob" method="calculateRatings4Movies" cron="0 0/11 * * * ?"/>
         <!--run recommendation engine to produce results every 10 minutes-->
-        <task:scheduled ref="recommendPopulateJob" method="calculateRecommendInfo" cron="0 0/10 * * * ?"/>
+        <task:scheduled ref="recommendPopulateJob" method="calculateRecommendInfo" cron="0 0/17 * * * ?"/>
         <!--run process tag job every 3 minutes-->
-        <task:scheduled ref="tagProcessJob" method="processTags4Movies" cron="0 0/3 * * * ?"/>
+        <task:scheduled ref="tagProcessJob" method="processTags4Movies" cron="0 0/11 * * * ?"/>
     </task:scheduled-tasks>
 
 
